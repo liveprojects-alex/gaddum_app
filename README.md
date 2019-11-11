@@ -1,5 +1,5 @@
 # gaddum_app
-The consumer app for the [gaddum project](https://cmdt.github.io/gaddum/). Share music for your mood.
+The consumer app for the [gaddum project](https://cmdt.github.io/gaddum/). Play music for your mood.
 
 This repository contains the code for the Ionic + Cordova crossplatform mobile app.
 
