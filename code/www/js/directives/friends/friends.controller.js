@@ -15,7 +15,8 @@
     '$ionicModal',
     '$scope',
     'gaddumContextMenuItem',
-    'gaddumShortcutBarService'
+    'gaddumShortcutBarService',
+    'FriendsAddFriendModal'
   ];
 
   function friendsController(
@@ -30,7 +31,8 @@
 
     $scope,
     gaddumContextMenuItem,
-    gaddumShortcutBarService
+    gaddumShortcutBarService,
+    FriendsAddFriendModal
   ) {
     var vm = angular.extend(this, {
       friends: null,
@@ -147,9 +149,15 @@
     }];
 
     vm.addFriend = function addFriend() {
-      vm.addFriendsModal();
+      FriendsAddFriendModal.open(vm.modalpage,funcOk,funcFail);
+      // vm.addFriendsModal();
     };
+    function funcOk(){
 
+    }
+    function funcFail(){
+
+    }
     vm.search = function search() {
       var searchInput = document.getElementsByName("searchTextInput");
       var search = searchInput[0].value;

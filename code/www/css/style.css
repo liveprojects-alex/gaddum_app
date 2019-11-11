@@ -963,7 +963,7 @@ input::placeholder{
 .removeTextInButton{
     position: absolute;
     bottom: -5%;
-    left: 25%;
+    left: 7.5;
     color:black;
 }
 .playTextInButtonPlaylistView{
