@@ -1,0 +1,24 @@
+<div class="modal" ng-controller="friendsAddFriendModalController as vm">
+  <header class="bar bar-header bar-positive modalHeader">
+    <h1 id="addFriendsModalHeaderText" class="title">Add a friend - Step1</h1>
+    <div class="button button-clear" ng-click="modal.hide()"><span class="icon ion-close"></span></div>
+  </header>
+  <content has-header="true" padding="true">
+    <div class="modalBody">
+    <p id="addFriendsModalBodyText">You're about to request connection to your friend. You can only do this when you are together. Ask your friends to show you their Gaddum app, at the Profile page
+    </p>
+    <button id="addFriendsModalCancelButton"ng-click="vm.addFriendsModalClose();">Cancel</button>
+    <button id="addFriendsModalPrevButton" disabled ng-click="vm.addFreindsModalPrev()">Prev</button>
+    <!-- <button id="addFriendsModalNextButton" ng-click="vm.addFreindsModalNext()" ng-show="vm.showFinishbutton==false">Next</button> -->
+    <button id="addFriendsModalNextButton" ng-click="((vm.modalpage==3) ? vm.addNewFriend() : vm.addFreindsModalNext())"; ng-show="vm.showFinishbutton==false">Next</button>
+    <button id="addFriendsModalFinishButton" ng-click="vm.addFriendsModalClose()" ng-show="vm.showFinishbutton==true">Finish</button>
+    <button id="scan" ng-click="vm.scanQRcode()" ng-show="vm.modalpage==3">Scan QR code</button>
+
+    </div>
+  </content>
+</div>
+
+
+
+<!-- "choice1" ? <code for true> : <code for false></code> -->
+<!-- (vm.modalpage===0) -->

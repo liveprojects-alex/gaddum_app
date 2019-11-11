@@ -52,7 +52,8 @@ angular.module('gaddum', [
   'gaddum.time',
   'gaddum.connection',
   'playlistCreateModule',
-  'gaddum.httpInterceptor'
+  'gaddum.httpInterceptor',
+  'FriendsAddFriendModule'
 ])
   .run([
     '$ionicPlatform',
