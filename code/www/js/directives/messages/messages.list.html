@@ -1,0 +1,24 @@
+<ion-view ng-hide="vm.busy" class="hasHeader hasFooter profileDirective"  can-swipe-back="false" >
+
+  <h1>Messages</h1>
+
+  <ion-content id="friendsListscroll">
+      <ion-list can-swipe="true" id="friendsList">
+        <ion-item ng-repeat="message in vm.messages" ng-class-odd="'item-thumbnail-left listodd'" ng-class-even="'listeven item-thumbnail-left'"
+        can-swipe="true" class="item-remove-animate item item-complex" ng-touchstart="vm.preventSlideBox($event)"
+        ng-touchend="vm.allowSlideBox($event)" ng-mousedown="vm.preventSlideBox($event)" ng-mouseup="vm.allowSlideBox($event)">
+          {{message.Content}}
+          <ion-option-button class="button-assertive removeFriends" ng-click="vm.deleteCheck($index)">
+            <img src="css/remove.png"/>
+            <div class="removeTextInButton">remove</div>
+          </ion-option-button>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+
+
+
+
+
+
+</ion-view>
