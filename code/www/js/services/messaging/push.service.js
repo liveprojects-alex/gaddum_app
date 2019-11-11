@@ -13,6 +13,15 @@ const SERVER_ROOT = "https://rescuestationpush.herokuapp.com:443"; // heroku ser
     '$http'
   ];
 
+  // (1) inject service
+  // (2) setCallback(callbackHandler) <- set where inbound messages go
+  // (3) initialisePush(signinCallbackHandler) <- confirmation of signin 
+
+  // (a) subscribe(topic) <- set a subscription
+  // (b) unsubscribe(topic)
+
+  // (4) &callbackHandler(data) <- this is invoked on inbound data
+
   function pushService(
     $http
   ) {
@@ -89,8 +98,9 @@ const SERVER_ROOT = "https://rescuestationpush.herokuapp.com:443"; // heroku ser
 
     // subscription handling
 
+    // there is no point keeping a log of topics that have been subscribed to
     service.subscribe = function subscribe( topic ) {
-      service.push.subscribe( topic, function subscribeSuccess(){
+      service.push.subscribe( topic, function subscribeSuccess() {
         console.log("push.service - subscription to "+topic+"' successful!");
 
         service.push.on('registration', function (data) {
@@ -108,6 +118,14 @@ const SERVER_ROOT = "https://rescuestationpush.herokuapp.com:443"; // heroku ser
       }, function subscribeFailure( err ){
         console.log("push.service - subscription to '"+topic+"' failed, error:", err);
         throw( err );
+      });
+    };
+
+    service.unsubscribe = function unsubscribe( topic ) {
+      service.push.unsubscribe( topic, function unsubscribeSuccess() {
+
+      }, function unsubscribeFailure(err) {
+        console.log("done screwed up unsubscribing from "+String(topic), err);
       });
     };
 
