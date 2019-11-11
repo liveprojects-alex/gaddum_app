@@ -1,26 +1,132 @@
-Ionic App Base
-==============
+# Gaddum Mood Music
+## This is an Ionic V1 App
+You'll need to install the development kit:
+### Windows 10?
+Find the How-To, right [here](https://github.com/AliceDigitalLabs/SupportingLiveProjects_2018/wiki/Ionic-and-Cordova-on-Win-10)  
 
-A starting project for Ionic that optionally supports using custom SCSS.
+### Mac?
+There is a supplemental for Mac users, [here](https://github.com/AliceDigitalLabs/Supporting_LiveProjects_2019/wiki/Ionic-and-Cordova-on-Win-10:-Mac-Supplemental)
 
-## Using this project
+### Building
 
-We recommend using the [Ionic CLI](https://github.com/ionic-team/ionic-cli) to create new Ionic projects that are based on this project but use a ready-made starter template.
 
-For example, to start a new Ionic project with the default tabs interface, make sure the `ionic` utility is installed:
 
-```bash
-$ npm install -g ionic cordova
+1. Install cordova
+
+```
+npm install -g cordova
 ```
 
-Then run:
+2. Install ionic
+```
+npm install -g ionic@3.20.0
+```  
 
-```bash
-$ ionic start myProject tabs --type=ionic1
+Note: The latest version (4.3) of the Ionic CLI contains a breaking change. Make sure you use the above version: 3.20.0
+
+
+* check your installation:
+
+For ionic:  
+
+```
+ionic -v
 ```
 
-More info on this can be found on the Ionic [Getting Started](https://ionicframework.com/getting-started) page and the [Ionic CLI](https://github.com/ionic-team/ionic-cli) repo.
+For cordova: 
+```
+cordova -v
+```
 
-## Issues
+4. When you can successfully run ionic, you're on to trying a build!  
 
-Issues have been disabled on this repo. If you do find an issue or have a question, consider posting it on the [Ionic Forum](https://forum.ionicframework.com/). If there is truly an error, follow our guidelines for [submitting an issue](https://ionicframework.com/submit-issue/) to the main Ionic repository.
+* Add the android platform to your project.
+ * in the top-level of the project (where you can see config.xml) use the following command:
+
+```
+ionic cordova platform add android@6.3.0
+```
+
+* Adding the platform should go OK.
+
+
+* Check you have a gulpfile.js in the top level of your project. If not, download it from https://github.com/ionic-team/ionic-app-base/blob/master/gulpfile.js  
+
+* Check that you have Gradle installed.
+```
+gradle -v
+```
+We're running version 4.10
+
+* If Gradle is not installed, go to https://gradle.org/install/
+ * Download the zip file. DON'T use a package manager!
+ * Create a folder in which to put Gradle: 
+ * Extract the contents of the .zip file to the folder.
+ * You now need to add the location of the Gradle binaries to your PATH environmnent variable:
+ 
+ For example:
+ ```
+ C:\Gradle\gradle-4.10.2\bin
+ ```
+
+* you will need to add the ionic v1 toolkit  package to the ionic CLI:
+(this is an ionic v1 project (yes, we're still using ionic v1 and angularjs. BECAUSE.))
+
+```
+npm i -D @ionic/v1-toolkit
+```
+
+
+* Now you're ready to try a build:
+
+```
+ionic cordova build android
+```
+
+This should create an android .apk file for you. in .\platforms\android\app\build\outputs\apk\debug
+
+* Android Studio is installed, but you will need to put the tools in your PATH before you can deploy to a phone.
+
+```
+C:\AndroidSDK\platform-tools
+```
+
+* connect up your android phone to your PC, using a USB cable. Make sure the device is ready to accept your deployed app:
+ * You will need to do that special ['thing'](https://www.digitaltrends.com/mobile/how-to-get-developer-options-on-android/) to get 'Developer Options' available.
+ * In developer options, enable USB debugging.
+* check that your device is available
+```
+adb devices
+```
+
+* you should see an entry for your device.
+
+
+
+* Now give it a try:
+
+
+```
+ionic cordova run android
+```
+
+* Hey, presto! We're on your device.
+
+
+## This is a Spotify App
+
+Actually, this app is designed to use many Music Streaming Providers. 
+
+When you build the app, you will need to register it with Spotify (and any other service providers we will hopefully support). 
+You will need to obtain a Spotify Client Id. 
+
+Put the Client ID in the Database. It must go in the following table:
+
+**music_provider_settings** 
+
+|provider|id|value|value_type|
+|-|-|-|-|
+|gaddumMusicProviderSpotifyService|client_id|~xx9xxxdc21redactedxxa1d74xx5b03e~|string|
+
+
+

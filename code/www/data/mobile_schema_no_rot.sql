@@ -1,8 +1,10 @@
 --
 -- File generated with SQLiteStudio v3.0.7 on Fri Sep 13 16:04:53 2019
---
+-- 
 -- Text encoding used: UTF-8
 --
+-- Note: Current value for music_provider_settings:client_id is deprecated. App version 0.0.2 will cease to work when this is changed to the new client id.
+-- 
 PRAGMA foreign_keys = off;
 -- BEGIN TRANSACTION;
 
