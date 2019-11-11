@@ -2,9 +2,16 @@
   <ion-content animated scroll="false" ng-class="mlc.playeropen" id="slideboxwrapper">
     <ion-slide-box active-slide="Groups" on-slide-changed="$emit('slideChanged')" slide-tabs-scrollable="false"
       show-pager="false" ion-slide-tabs>
-      
 
-      
+       <ion-slide ion-slide-tab-label="Friends" data-state="friends.friendsList">
+        <div class="box">
+          <gaddum.main_ui.header name="Friends"></gaddum.main_ui.header>
+          <div ui-view="friends">
+            <i>friends_main_ui</i>
+          </div>
+        </div>
+      </ion-slide>
+
 <!--       <ion-slide ion-slide-tab-label="Groups" data-state="groups.groupsList">
         <div class="box">
           <gaddum.main_ui.header name="Groups"></gaddum.main_ui.header>
@@ -14,14 +21,14 @@
         </div>
       </ion-slide> -->
 
-<!--       <ion-slide ion-slide-tab-label="Messages" data-state="messages.messageList">
+       <ion-slide ion-slide-tab-label="Messages" data-state="messages.messageList">
         <div class="box">
           <gaddum.main_ui.header name="Messages"></gaddum.main_ui.header>
           <div ui-view="messages">
             <i>messages_main_ui</i>
           </div>
         </div>
-      </ion-slide> -->
+      </ion-slide>
 
       <ion-slide ion-slide-tab-label="Playlists" data-state="playlists.playlistsList">
         <div class="box">
@@ -32,14 +39,14 @@
         </div>
       </ion-slide>
 
-<!--       <ion-slide ion-slide-tab-label="Gifts" data-state="gifts.giftsList">
+       <ion-slide ion-slide-tab-label="Gifts" data-state="gifts.giftsList">
         <div class="box">
           <gaddum.main_ui.header name="Gifts"></gaddum.main_ui.header>
           <div ui-view="gifts">
             <i>gifts_main_ui</i>
           </div>
         </div>
-      </ion-slide> -->
+      </ion-slide>
 
       <ion-slide ion-slide-tab-label="Browse" data-state="browse.list">
         <div class="box">
@@ -50,7 +57,6 @@
         </div>
       </ion-slide>
 
-
       <ion-slide ion-slide-tab-label="Mood" data-state="mood">
         <div class="box">
           <gaddum.main_ui.header name="Mood"></gaddum.main_ui.header>
@@ -60,16 +66,6 @@
         </div>
       </ion-slide>
 
-      <ion-slide ion-slide-tab-label="Friends" data-state="friends.friendsList">
-        <div class="box">
-          <gaddum.main_ui.header name="Friends"></gaddum.main_ui.header>
-          <div ui-view="friends">
-            <i>friends_main_ui</i>
-          </div>
-        </div>
-      </ion-slide>
-
-      
       <ion-slide ion-slide-tab-label="Profile" data-state="profile">
               <div class="box">
                 <gaddum.main_ui.header name="Profile"></gaddum.main_ui.header>
