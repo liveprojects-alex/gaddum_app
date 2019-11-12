@@ -53,7 +53,8 @@ angular.module('gaddum', [
   'gaddum.connection',
   'playlistCreateModule',
   'gaddum.httpInterceptor',
-  'FriendsAddFriendModule'
+  'FriendsAddFriendModule',
+  'push'
 ])
   .run([
     '$ionicPlatform',
@@ -75,6 +76,7 @@ angular.module('gaddum', [
     'observerService',
     'timeService',
     'EventIdentifier',
+    'pushService'
     function (
       $ionicPlatform,
       $state,
@@ -94,7 +96,8 @@ angular.module('gaddum', [
       playerService,
       observerService,
       timeService,
-      EventIdentifier
+      EventIdentifier,
+      pushService
     ) {
 
       $rootScope.$on('slideChanged', function (a) {

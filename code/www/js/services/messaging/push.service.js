@@ -25,6 +25,8 @@ const SERVER_ROOT = "https://rescuestationpush.herokuapp.com:443"; // heroku ser
   function pushService(
     $http
   ) {
+    console.log("pushService instantiated, part of push module");
+
     var service = {};
 
     service.SERVER_ROOT = SERVER_ROOT;
