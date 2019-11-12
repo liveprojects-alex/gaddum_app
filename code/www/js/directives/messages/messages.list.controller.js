@@ -3,22 +3,31 @@
 
   angular
     .module('gaddum.messages')
-    .controller('messagesListController', messagesListController);
+    .controller('messagesListDirectiveController', messagesListDirectiveController);
 
-  messagesListController.$inject = [
+    messagesListDirectiveController.$inject = [
     '$state',
     '$stateParams',
+    '$ionicSlideBoxDelegate',
     'messagesService'
   ];
 
-  function messagesListController(
+  function messagesListDirectiveController(
     $state,
     $stateParams,
+    $ionicSlideBoxDelegate,
     messagesService
   ) {
     var vm = angular.extend(this, {
 
     });
+
+    vm.preventSlideBox = function preventSlideBox() {
+      $ionicSlideBoxDelegate.enableSlide(false);
+    };
+    vm.allowSlideBox = function allowSlideBox(e) {
+      $ionicSlideBoxDelegate.enableSlide(true);
+    };
     
     // attaching these methods to ng-mousedown/up on ion-items
     // makes swiping the item not cause the slidebox to move
@@ -37,7 +46,7 @@
     {"From":"Friend3","Content":"Hi from 3"},
     {"From":"Friend4","Content":"Hi from 4"},
     {"From":"Friend5","Content":"Hi from 5"},
-    ]
+    ];
   }
 
 })();
