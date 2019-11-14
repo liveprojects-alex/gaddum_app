@@ -7,6 +7,9 @@
         <ion-item ng-repeat="message in vm.messages" ng-class-odd="'item-thumbnail-left listodd'" ng-class-even="'listeven item-thumbnail-left'"
         can-swipe="true" class="item-remove-animate item item-complex" ng-touchstart="vm.preventSlideBox($event)"
         ng-touchend="vm.allowSlideBox($event)" ng-mousedown="vm.preventSlideBox($event)" ng-mouseup="vm.allowSlideBox($event)">
+
+        <canvas class="messageProfileCanvas" id={{message.message_ID}} ng-init='vm.getMessageSender(message.message_ID)'
+        height=80 width=80></canvas>
           {{message.Content}}
           <ion-option-button class="button-assertive removeFriends" ng-click="vm.deleteCheck($index)">
             <img src="css/remove.png"/>

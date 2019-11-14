@@ -32,6 +32,27 @@
         }
 
         var MAX_CONNECTIONS = 50;
+
+        function searchFriendsByID(searchID){
+          //replace to get all friends from database then search them by id
+          var deferred = $q.defer();
+          var foundProfile=null;
+          for(var i = 0 ; i<friendsDummy.length; i++){
+            if(friendsDummy[i].profile.profile_id==searchID){
+              foundProfile=friendsDummy[i];
+            }
+          }
+          if (!foundProfile) {
+            deferred.reject("couldn't find profile");
+          }else{
+            deferred.resolve(foundProfile);
+            
+          }
+          return deferred.promise;
+        }
+
+
+
         var friendsDummy=[
       
             {"profile": {
@@ -47,6 +68,7 @@
                 0,
                 0
               ],
+              "avatar_graphic_colour":"#FF00FF",
               device_id: "dJUr6sA28ZY:A1A91bH-chjJ8lcq61ofrjoHjak3q6nCFALPGytdEsLzh2DacCx7ihhZHxd6pPSXYMhtx4MlcQekn1rzjB7c809aNzivPFu5jhA-SR6FWbvzfBsO8ySo6um8DVA9dgOgokzz0QU5vbEf"
             }},
             {"profile": {
@@ -71,6 +93,7 @@
                 126,
                 0 */
               ],
+              "avatar_graphic_colour":"#FF00FF",
               device_id: "dJUr6sA28ZY:A2A91bH-chjJ8lcq61ofrjoHjak3q6nCFALPGytdEsLzh2DacCx7ihhZHxd6pPSXYMhtx4MlcQekn1rzjB7c809aNzivPFu5jhA-SR6FWbvzfBsO8ySo6um8DVA9dgOgokzz0QU5vbEf"
             }},
             {"profile": {
@@ -86,6 +109,7 @@
                 6,
                 0
               ],
+              "avatar_graphic_colour":"#FF00FF",
               device_id: "dJUr6sA28ZY:A3A91bH-chjJ8lcq61ofrjoHjak3q6nCFALPGytdEsLzh2DacCx7ihhZHxd6pPSXYMhtx4MlcQekn1rzjB7c809aNzivPFu5jhA-SR6FWbvzfBsO8ySo6um8DVA9dgOgokzz0QU5vbEf"
             }},
             {"profile": {
@@ -101,6 +125,7 @@
                 102,
                 0
               ],
+              "avatar_graphic_colour":"#FF00FF",
               device_id: "dJUr6sA28ZY:A4A91bH-chjJ8lcq61ofrjoHjak3q6nCFALPGytdEsLzh2DacCx7ihhZHxd6pPSXYMhtx4MlcQekn1rzjB7c809aNzivPFu5jhA-SR6FWbvzfBsO8ySo6um8DVA9dgOgokzz0QU5vbEf"
             }},
             {"profile": {
@@ -116,13 +141,16 @@
                 102,
                 0
               ],
+              "avatar_graphic_colour":"#FF00FF",
               device_id: "dJUr6sA28ZY:A5A91bH-chjJ8lcq61ofrjoHjak3q6nCFALPGytdEsLzh2DacCx7ihhZHxd6pPSXYMhtx4MlcQekn1rzjB7c809aNzivPFu5jhA-SR6FWbvzfBsO8ySo6um8DVA9dgOgokzz0QU5vbEf"
             }},
           ];
         var service = {
                deleteFriends,
                getAllFriends,
-               searchFriends
+               searchFriends,
+               searchFriendsByID,
+               beginFriend
         };
         function searchFriends(input){
           var tempFriends = [];
