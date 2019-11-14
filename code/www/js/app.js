@@ -76,7 +76,7 @@ angular.module('gaddum', [
     'observerService',
     'timeService',
     'EventIdentifier',
-    'pushService'
+    'pushService',
     function (
       $ionicPlatform,
       $state,
