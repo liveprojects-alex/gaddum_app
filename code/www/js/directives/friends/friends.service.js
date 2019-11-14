@@ -8,14 +8,29 @@
         .factory('friendsService', friendsService);
 
     friendsService.$inject = [
-        
+        '$q',
+        'connectionService'
          
     ];
 
     function friendsService(
-      
+      $q,
+      connectionService
         
     ) {
+
+        function beginFriend(sharedProfile){
+          var deferred = $q.defer();
+          connectionService.requestConnection(sharedProfile).then(function(){
+            deferred.resolve(sharedProfile);
+          },
+          function(){
+            deferred.reject("connection request failed");
+          });
+          return deferred.promise;
+
+        }
+
         var MAX_CONNECTIONS = 50;
         var friendsDummy=[
       
