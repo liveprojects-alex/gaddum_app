@@ -22,7 +22,7 @@
           }]),
           views: {
             'messages@gaddum': {
-              templateUrl: 'js/directives/messages/messages.list.html',
+              templateUrl: 'js/modules/messages/messages.list.html',
               controller: "messagesListDirectiveController",
               controllerAs: "vm"
             }
