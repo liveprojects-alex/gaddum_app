@@ -5,22 +5,32 @@
     .controller('friendsAddFriendModalController', friendsAddFriendModalController);
 
     friendsAddFriendModalController.$inject = [
-    '$scope'
+    '$scope',
+    'FriendsAddFriendModal'
   ];
 
   function friendsAddFriendModalController(
-    $scope
+    $scope,
+    FriendsAddFriendModal
   ) {
 
     var vm = angular.extend(this, {
       params:null,
-      playlist:[]
+      playlist:[],
+      modalpage:1
     });
-    $scope.addToFriendModal = addToFriendModal;
+    $scope.FriendsAddFriendModal = FriendsAddFriendModal;
 
 
     function init() {
-      vm.params = addToFriendModal.getParams();
+      vm.params = FriendsAddFriendModal.getParams();
+      if(vm.params.pageNum){
+        vm.modalpage = vm.params.pageNum;
+      }
+      if(vm.params.content){
+        console.log(vm.params.content);
+      }
+      // vm.addFriendsModalUpdater();
     };
 
     //copy paste will need a good look over
@@ -75,6 +85,9 @@
         $scope.modal = null;
       });
     };
+    vm.openQR = function(){
+     FriendsAddFriendModal.callbackfail(); 
+    }
 
     init();
   }

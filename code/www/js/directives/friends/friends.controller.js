@@ -148,16 +148,16 @@
       }
     }];
 
-    vm.addFriend = function addFriend() {
-      FriendsAddFriendModal.open(vm.modalpage,funcOk,funcFail);
-      // vm.addFriendsModal();
+    vm.addFriend = function addFriend(param) {
+      if(!param){
+        param = {pageNum: 1, content: null};
+      }
+      FriendsAddFriendModal.open(param,funcOk,scanQRcode);
     };
     function funcOk(){
 
     }
-    function funcFail(){
-
-    }
+    
     vm.search = function search() {
       var searchInput = document.getElementsByName("searchTextInput");
       var search = searchInput[0].value;
@@ -329,9 +329,9 @@
       vm.showcamera = false;
       vm.scanner.stop();//stop the scanner when a code is scanned
       console.log("scanned: ", content);//display the scanned code in the log
-
-
-      vm.addNewFriend(content);
+      var param = {pageNum: 5, content: content};
+      console.log(param);
+      vm.addFriend(param);
 
 
 
@@ -343,14 +343,14 @@
 
 
     //added for scanner 3/3
-    vm.scanQRcode = function () {
+    function scanQRcode() {
       //get a camera, pass it into the start of the scanner object in the data model (defined above)
       //this will start the camera, show the video feed on the page and start scanning for a QRcode
 
       Instascan.Camera.getCameras().then(function (cameras) {
         //enumerate available cameras. result displayed in an array
         vm.showcamera = true;
-        $scope.modal.hide();
+        // $scope.modal.hide();
         console.log("cameras: ", cameras);
         if (cameras.length > 0)//if any cameras are found
         {
