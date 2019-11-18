@@ -27,7 +27,7 @@
             open: open,
             close: close,
             getParams:getParams,
-            callback:callback,
+            callbackfail:callbackfail,
             closeCheckFalse:closeCheckFalse,
             data:data
         };
@@ -66,9 +66,6 @@
                     $timeout(function(){
                         modalSave.remove();
                         modalSave = null;
-                        $scope.fnCallbackCancel(dataTracks,dataPlaylist);
-                        dataTracks = null;
-                        dataPlaylist = null;
                     },500);
                     
                 }
@@ -88,8 +85,9 @@
             dataPlaylist = playlist;
             dataTracks = tracks;
         }
-        function callback(newData){
-            $scope.fnCallbackOk(newData);
+        function callbackfail(){
+            $scope.fnCallbackCancel();
+            close();
         };
     }
 })();

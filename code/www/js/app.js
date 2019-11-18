@@ -54,7 +54,8 @@ angular.module('gaddum', [
   'playlistCreateModule',
   'gaddum.httpInterceptor',
   'FriendsAddFriendModule',
-  'push'
+  'push',
+  'gaddum.newMessageIcon'
 ])
   .run([
     '$ionicPlatform',
