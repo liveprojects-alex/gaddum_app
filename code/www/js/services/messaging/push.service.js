@@ -80,11 +80,11 @@ const SERVER_ROOT = "https://gaddum.restlet.io:443"; // heroku service hides sec
       service.push.on('notification', function(data){
         console.log("push.notification event, ", data);
         if(data.hasOwnProperty("additionalData")) {
-          if(data.additionalData.hasOwnProperty("payload")) {
+//          if(data.additionalData.hasOwnProperty("payload")) {
             service.callbackHandler( data.additionalData );
-          } else {
-            console.log("inbound message missing an additionalData.payload property");
-          }
+//          } else {
+//            console.log("inbound message missing an additionalData.payload property");
+//          }
         } else {
           console.log("inbound message missing an additionalData property");
         }
