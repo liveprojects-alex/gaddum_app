@@ -40,8 +40,8 @@
         pushService.initialisePush( function pushInitialisedCompletely( message ) {
           console.log( "push signed in, got registration message ", message );
           service.deviceId = message.registrationId;
-          userSettingsService.asyncSet("deviceId", message.deviceId, "STRING" /* this last parameter is a guess - check @todo */ );
-          console.log("deviceID is now ",message.registrationId);
+          userSettingsService.asyncSet("push_device_id", message.registrationId, "string" /* this last parameter is a guess - check @todo */ );
+          //console.log("deviceID is now ",message.registrationId);
           pushService.setCallback(service.inboundHandler);
           deferred.resolve( message );
         });
