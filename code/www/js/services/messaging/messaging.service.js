@@ -46,7 +46,7 @@
       }
     };
 
-    service.getDeviceId() {
+    service.getDeviceId = function getDeviceId() {
       if(service.deviceId !== null) {
         var deferred = $q.defer;
         deferred.resolve(service.deviceId);
@@ -56,7 +56,7 @@
           pushService.initialise()
         );
       }
-    }
+    };
 
     service.requestConnection = function requestConnection(cUUID) {
       pushService.getConnectionUUID().then(function(d){
@@ -106,9 +106,9 @@
       pushService.sendPayload(p);
     };
 
-    service.subscribe = pushService.subscribe( topic );
+    service.subscribe = pushService.subscribe;
 
-    service.unsubscribe = pushService.unsubscribe( topic );
+    service.unsubscribe = pushService.unsubscribe;
 
     return service;
   }
