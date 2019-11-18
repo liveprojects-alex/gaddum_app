@@ -1,8 +1,13 @@
 const SERVER_ROOT = "https://gaddum.restlet.io:443"; // heroku service hides secret
 
+// push service is very low-level; better to interface with the messaging service, which should
+// give much cleaner interfaces to registering, recieving, subscribing, unsubscribing, and
+// sending messages.
+
+
 (function() {
   'use strict';
-  console.log("pushService executed");
+  //console.log("pushService executed");
 
   angular
     .module('push', [])

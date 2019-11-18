@@ -9,12 +9,14 @@
   messagingService.$inject = [
     '$rootScope',
     'pushService',
+    'pubsubService',
     'userSettingsService',
     '$q'
   ];
   function messagingService(
     $rootScope,
     pushService,
+    pubsubService,
     userSettingsService,
     $q
   ) {
@@ -87,14 +89,15 @@
     service.inboundHandler = function inboundHandler( message ) {
       var eventName = "message."+message.payload.hasOwnProperty("message_type")?
           message.payload.message_type:service.message_type.NONE;
+      // message_type is one of NONE, CONNECTION_REQUEST, CONNECTION_RESPONSE, CONNECTION_TEARDOWN, SYSTEM_MESSAGE, MESSAGE
 
-      $rootScope.$broadcast(eventName, message.payload );
-//
-      //      NONE, CONNECTION_REQUEST, CONNECTION_RESPONSE, CONNECTION_TEARDOWN, SYSTEM_MESSAGE, MESSAGE
-//  usage:
-//      $scope.$on('message.CONNECTION_REQUEST', function(e, data){
-//        // handle message
-//     });
+      pubsubService.asyncPublish( eventName, message );
+
+      //$rootScope.$broadcast(eventName, message.payload );
+      //  usage:
+      //      $scope.$on('message.CONNECTION_REQUEST', function(e, data){
+      //        // handle message
+      //     });
     };
 
     service.send = function send(p) {
@@ -103,7 +106,6 @@
       }
       if(p.payload.hasOwnProperty("uuid")===false) {
         p.payload.uuid = service.makeUUID();
-
       }
       if(p.payload.hasOwnProperty("message_type")===false) {
         p.payload.message_type = service.message_type.MESSAGE;
