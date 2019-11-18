@@ -9,12 +9,14 @@
   messagingService.$inject = [
     '$rootScope',
     'pushService',
-    'userSettingsService'
+    'userSettingsService',
+    '$q'
   ];
   function messagingService(
     $rootScope,
     pushService,
-    userSettingsService
+    userSettingsService,
+    $q
   ) {
 
     var service = {
@@ -30,36 +32,61 @@
       "MESSAGE":             5
     };
 
-    try {
-      service.initialisePush( function pushInitialisedCompletely( message ) {
-        service.deviceId = data.registrationId;
-        userSettingsService.asyncSet("deviceId", service.deviceId, "STRING? LOOKS LIKE A STRING." )
-        console.log("deviceID is now ",data.registrationId)
+    service.initalise = function initialise() {
+      try {
+        service.initialisePush( function pushInitialisedCompletely( message ) {
+          service.deviceId = data.registrationId;
+          userSettingsService.asyncSet("deviceId", service.deviceId, "STRING" /* this last parameter is a guess - check @todo */ );
+          console.log("deviceID is now ",data.registrationId);
+          pushService.setCallback(service.inboundHandler);
+        });
+      } catch (err) {
+        console.log( "Error starting up messagingService - " , err );
+        throw( "error starting messagingService - " , err );
+      }
+    };
 
-      });
-    } catch (err) {
-      console.log("Error starting up messagingService - ",err);
-      throw("error starting messagingService - ",err);
+    service.getDeviceId() {
+      if(service.deviceId !== null) {
+        var deferred = $q.defer;
+        deferred.resolve(service.deviceId);
+        return deferred.promise;
+      } else {
+        return(
+          pushService.initialise()
+        );
+      }
     }
+
+    service.requestConnection = function requestConnection(cUUID) {
+      pushService.getConnectionUUID().then(function(d){
+        console.log("requestConnection - got ",d);
+      });
+    };
+
+    service.requestDisconnection = function requestDisconnection(cUUID) {
+      var deferred = $q.defer();
+
+    };
+
 
     service.makeUUID = function makeUUID() {
       // thanks https://stackoverflow.com/a/2117523
       return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(
         /[018]/g, c =>
-          (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+          (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).
+          toString(16)
       );
     };
 
-    pushService.setCallback(service.inboundHandler);
-
     service.inboundHandler = function inboundHandler( message ) {
-
       var eventName = "message."+message.payload.hasOwnProperty("message_type")?
           message.payload.message_type:service.message_type.NONE;
 
-      $rootScope.$broadcast(eventName, message.payload )
+      $rootScope.$broadcast(eventName, message.payload );
 //
-//      NONE, CONNECTION_REQUEST, CONNECTION_RESPONSE, CONNECTION_TEARDOWN, SYSTEM_MESSAGE, MESSAGE
+      //      NONE, CONNECTION_REQUEST, CONNECTION_RESPONSE, CONNECTION_TEARDOWN, SYSTEM_MESSAGE, MESSAGE
+//  usage:
 //      $scope.$on('message.CONNECTION_REQUEST', function(e, data){
 //        // handle message
 //     });

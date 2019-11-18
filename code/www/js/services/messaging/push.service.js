@@ -1,4 +1,4 @@
-const SERVER_ROOT = "https://rescuestationpush.herokuapp.com:443"; // heroku service hides secret
+const SERVER_ROOT = "https://gaddum.restlet.io:443"; // heroku service hides secret
 
 (function() {
   'use strict';
@@ -10,7 +10,8 @@ const SERVER_ROOT = "https://rescuestationpush.herokuapp.com:443"; // heroku ser
   ;
 
   pushService.$inject = [
-    '$http'
+    '$http',
+    '$q'
   ];
 
   // (1) inject service
@@ -23,7 +24,8 @@ const SERVER_ROOT = "https://rescuestationpush.herokuapp.com:443"; // heroku ser
   // (4) &callbackHandler(data) <- this is invoked on inbound data
 
   function pushService(
-    $http
+    $http,
+    $q
   ) {
     console.log("pushService instantiated, part of push module");
 
@@ -41,6 +43,20 @@ const SERVER_ROOT = "https://rescuestationpush.herokuapp.com:443"; // heroku ser
 	  service.setTimeout = function setTimeout(millis) {
 		  service.timeoutMs = millis;
 	  };
+
+    service.initialise = function initialise(){
+      var deferred = $q.defer();
+
+      try{
+        service.initialisePush( function(d){
+          deferred.resolve( d.deviceId );
+        } );
+      } catch (e) {
+        deferred.reject(e);
+      }
+      return deferred.promise;
+
+    };
 
     service.initialisePush = function initialisePush( registeredCallback ) {
       service.push = PushNotification.init({
@@ -65,13 +81,23 @@ const SERVER_ROOT = "https://rescuestationpush.herokuapp.com:443"; // heroku ser
             console.log("inbound message missing an additionalData.payload property");
           }
         } else {
-          console.log("inbound messaeg missing an additionalData property");
+          console.log("inbound message missing an additionalData property");
         }
       });
 
       service.push.on('error', function (error) {
         console.log(error);
+        throw(error);
       });
+    };
+
+    // get a connection UUID from the server
+    service.getConnectionUUID = function getConnectionUUID(){
+      $http.post(SERVER_ROOT+"/connections").then(
+        function(d){
+          console.log("getConnectionUUID - got back ",d);
+        }
+      );
     };
 
     // pass in a notification object in payload.notification

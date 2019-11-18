@@ -76,7 +76,7 @@ angular.module('gaddum', [
     'observerService',
     'timeService',
     'EventIdentifier',
-    'pushService',
+    'messagingService',
     function (
       $ionicPlatform,
       $state,
@@ -97,7 +97,7 @@ angular.module('gaddum', [
       observerService,
       timeService,
       EventIdentifier,
-      pushService
+      messagingService
     ) {
 
       $rootScope.$on('slideChanged', function (a) {
@@ -182,6 +182,10 @@ angular.module('gaddum', [
             // this event is published when the settings UI has completed. See the main menu. 
             'userSettingChange', gaddumMusicProviderService.asyncUpdateFromSettings
           );
+
+          messagingService.initialise().then(function(d){
+            console.log("app.js: messagingService.initialised with return of ",d);
+          });
 
           // -- the connection service warns the player when there is a change in conneciton state.
           // -- note: hasWifi is very useful: users may not want to use when on cellular.
