@@ -32,18 +32,23 @@
       "MESSAGE":             5
     };
 
-    service.initalise = function initialise() {
+    service.initialise = function initialise() {
+      var deferred = $q.defer();
       try {
-        service.initialisePush( function pushInitialisedCompletely( message ) {
-          service.deviceId = data.registrationId;
-          userSettingsService.asyncSet("deviceId", service.deviceId, "STRING" /* this last parameter is a guess - check @todo */ );
-          console.log("deviceID is now ",data.registrationId);
+        pushService.initialisePush( function pushInitialisedCompletely( message ) {
+          console.log( "push signed in, got registration message ", message );
+          service.deviceId = message.registrationId;
+          userSettingsService.asyncSet("deviceId", message.deviceId, "STRING" /* this last parameter is a guess - check @todo */ );
+          console.log("deviceID is now ",message.registrationId);
           pushService.setCallback(service.inboundHandler);
+          deferred.resolve( message );
         });
       } catch (err) {
         console.log( "Error starting up messagingService - " , err );
         throw( "error starting messagingService - " , err );
+        deferred.reject(err);
       }
+      return deferred.promise;
     };
 
     service.getDeviceId = function getDeviceId() {
@@ -55,7 +60,7 @@
         return(
           pushService.initialise()
         );
-      }
+      }return deferred.promise;
     };
 
     service.requestConnection = function requestConnection(cUUID) {
