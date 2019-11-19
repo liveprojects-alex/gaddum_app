@@ -63,22 +63,27 @@ const SERVER_ROOT = "https://gaddum.restlet.io:443"; // heroku service hides sec
     };
 
     service.initialisePush = function initialisePush( registeredCallback ) {
+
       service.push = PushNotification.init({
         android:{}
       });
+
+      // event handlers for message types
+
       service.push.on('registration',function( data ){
-        console.log("push.registration event, ", data);
+        //console.log("push.registration event, ", data);
         service.registrationId = data.registrationId;
         if( registeredCallback !== undefined ) {
           registeredCallback( data );
         }
       });
+
       service.push.on('notification', function(data){
         console.log("push.notification event, ", data);
         if(data.hasOwnProperty("additionalData")) {
             service.callbackHandler( data.additionalData );
         } else {
-          console.log("inbound message missing an additionalData property");
+          console.log("inbound message missing an additionalData property", data);
         }
       });
 
@@ -86,6 +91,7 @@ const SERVER_ROOT = "https://gaddum.restlet.io:443"; // heroku service hides sec
         console.log(error);
         throw(error);
       });
+
     };
 
     // get a connection UUID from the server
@@ -128,6 +134,8 @@ const SERVER_ROOT = "https://gaddum.restlet.io:443"; // heroku service hides sec
     service.subscribe = function subscribe( topic ) {
       service.push.subscribe( topic, function subscribeSuccess() {
         console.log("push.service - subscription to "+topic+"' successful!");
+
+        // topic subscription handlers
 
         service.push.on('registration', function (data) {
           //alert('registrationId:' + data.registrationId);
