@@ -93,6 +93,11 @@ const SERVER_ROOT = "https://gaddum.restlet.io:443"; // heroku service hides sec
       return ( $http.post( SERVER_ROOT + "/connections" ) );
     };
 
+    service.disconnect = function disconnect(cUUID) {
+      console.log("push.service:disconnect - called with cUUID of " + String(cUUID) );
+      return($http.delete( SERVER_ROOT + "/connections/" + String(cUUID) ) );
+    };
+
     // pass in a notification object in payload.notification
     // pass in recipient device in payload.recipient_id,
     //   or recipient topic as payload.recipient_id of "/topics/*YOUR_TOPIC*"

@@ -22,7 +22,7 @@
   ) {
 
     var service = {
-      deviceId: null
+      deviceIdKey: "push_device_id"
     };
 
     service.message_type = {
@@ -39,8 +39,7 @@
       try {
         pushService.initialisePush( function pushInitialisedCompletely( message ) {
           console.log( "push signed in, got registration message ", message );
-          service.deviceId = message.registrationId;
-          userSettingsService.asyncSet("push_device_id", message.registrationId, "string" );
+          userSettingsService.asyncSet(service.deviceIdKey, message.registrationId, "string" );
           pushService.setCallback(service.inboundHandler);
           deferred.resolve( message );
         });
@@ -53,28 +52,25 @@
     };
 
     service.getDeviceId = function getDeviceId() {
-      if(service.deviceId !== null) {
-        var deferred = $q.defer;
-        deferred.resolve(service.deviceId);
-        return deferred.promise;
-      } else {
-        return(
-          pushService.initialise()
-        );
-      }return deferred.promise;
+      return(
+        userSettingsService.asyncGet( service.deviceIdKey )
+      );
     };
 
     service.requestConnection = function requestConnection(cUUID) {
-      pushService.getConnectionUUID().then(function(d){
-        console.log("requestConnection - got UUID of ",d);
+      return(
+        pushService.getConnectionUUID()
+      );
+    };
+
+    service.requestDisconnection = function requestDisconnection() {
+      userSettingsService.asyncGet("push_device_id").then(function(cUUID){
+        pushService.disconnect(cUUID).then(function(){
+          service.deviceId = null;
+          userSettingsService.asyncSet(service.deviceIdKey, "", "string");
+        });
       });
     };
-
-    service.requestDisconnection = function requestDisconnection(cUUID) {
-      var deferred = $q.defer();
-
-    };
-
 
     service.makeUUID = function makeUUID() {
       // thanks https://stackoverflow.com/a/2117523
