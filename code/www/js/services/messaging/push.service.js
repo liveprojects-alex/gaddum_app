@@ -7,7 +7,6 @@ const SERVER_ROOT = "https://gaddum.restlet.io:443"; // heroku service hides sec
 
 (function() {
   'use strict';
-  //console.log("pushService executed");
 
   angular
     .module('push', [])
@@ -69,22 +68,15 @@ const SERVER_ROOT = "https://gaddum.restlet.io:443"; // heroku service hides sec
       });
       service.push.on('registration',function( data ){
         console.log("push.registration event, ", data);
-        console.log("DEVICE ID: "+data.registrationId);
         service.registrationId = data.registrationId;
         if( registeredCallback !== undefined ) {
-          //service.setCallback( registeredCallback );
-          console.log( "- invoking callback for registration with ", data );
           registeredCallback( data );
         }
       });
       service.push.on('notification', function(data){
         console.log("push.notification event, ", data);
         if(data.hasOwnProperty("additionalData")) {
-//          if(data.additionalData.hasOwnProperty("payload")) {
             service.callbackHandler( data.additionalData );
-//          } else {
-//            console.log("inbound message missing an additionalData.payload property");
-//          }
         } else {
           console.log("inbound message missing an additionalData property");
         }
@@ -98,11 +90,7 @@ const SERVER_ROOT = "https://gaddum.restlet.io:443"; // heroku service hides sec
 
     // get a connection UUID from the server
     service.getConnectionUUID = function getConnectionUUID(){
-      $http.post(SERVER_ROOT+"/connections").then(
-        function(d){
-          console.log("getConnectionUUID - got back ",d);
-        }
-      );
+      return ( $http.post( SERVER_ROOT + "/connections" ) );
     };
 
     // pass in a notification object in payload.notification
