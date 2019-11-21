@@ -10,7 +10,8 @@
     '$stateParams',
     '$ionicSlideBoxDelegate',
     'messagesService',
-    'friendsService'
+    'friendsService',
+    '$q'
   ];
 
   function messagesListDirectiveController(
@@ -18,11 +19,20 @@
     $stateParams,
     $ionicSlideBoxDelegate,
     messagesService,
-    friendsService
+    friendsService,
+    $q
   ) {
     var vm = angular.extend(this, {
 
     });
+
+    function init(){
+      getMessages()/* .then(function success(result){
+        console.log(result);
+      }, function (err){
+        console.log(err);
+      }) */
+    }
 
     vm.preventSlideBox = function preventSlideBox() {
       $ionicSlideBoxDelegate.enableSlide(false);
@@ -41,15 +51,51 @@
     };
 
     vm.messagesList = messagesService.messagesList;
+    vm.messages=[];
+    function getMessages(){
+      var deferred= $q.defer();
+    
+      //vm.messagesList = messagesService.messagesList;
+      /* vm.messages=[
+        {"From":"11111111-5500-4cf5-8d42-228864f4807a","Content":"Sword 1","message_ID":"Aatrox","message_type":"connectionRequest","sender_name":"Darkin swordsman"},
+        {"From":"22222222-5500-4cf5-8d42-228864f4807a","Content":"Fox 2","message_ID":"Ahri","message_type":"connectionResponse","sender_name":"Magic fox"},
+        {"From":"33333333-5500-4cf5-8d42-228864f4807a","Content":"Ninja 3","message_ID":"Akali","message_type":"musicSharing","sender_name":"Balance Ninja"},
+        {"From":"44444444-5500-4cf5-8d42-228864f4807a","Content":"Cow 4","message_ID":"Alistar","message_type":"connectionRequest","sender_name":"Free Cow"},
+        {"From":"55555555-5500-4cf5-8d42-228864f4807a","Content":"Sad boi 5","message_ID":"Amumu","message_type":"connectionRequest","sender_name":"Sad Mummy"},
+        ]; */
+        messagesService.getMessages().then(
+          function success(messages){
+            console.log("MEssages",messages);
+            var reducedMessages = messages.map(function(message){
+              return message.message.body;
+            });
+            vm.messages=reducedMessages;
 
-    vm.messages=[
+
+            /* var tempMessages=[];
+            messages.forEach(function(m){
+              tempMessages.push(m.message.body)
+            })
+
+            console.log("tempMessages",tempMessages);
+            messages=tempMessages; */
+
+
+            console.log("set messages",messages);
+          },
+          function fail(error){
+            console.log(error);
+          })
+
+    };
+
+    /* vm.messages=[
     {"From":"11111111-5500-4cf5-8d42-228864f4807a","Content":"Sword 1","message_ID":"Aatrox","message_type":"connectionRequest","sender_name":"Darkin swordsman"},
     {"From":"22222222-5500-4cf5-8d42-228864f4807a","Content":"Fox 2","message_ID":"Ahri","message_type":"connectionResponse","sender_name":"Magic fox"},
     {"From":"33333333-5500-4cf5-8d42-228864f4807a","Content":"Ninja 3","message_ID":"Akali","message_type":"musicSharing","sender_name":"Balance Ninja"},
     {"From":"44444444-5500-4cf5-8d42-228864f4807a","Content":"Cow 4","message_ID":"Alistar","message_type":"connectionRequest","sender_name":"Free Cow"},
     {"From":"55555555-5500-4cf5-8d42-228864f4807a","Content":"Sad boi 5","message_ID":"Amumu","message_type":"connectionRequest","sender_name":"Sad Mummy"},
-    //{"From":"66666666-5500-4cf5-8d42-228864f4807a","Content":"Egg 6","message_ID":"Anivia"},
-    ];
+    ]; */
 
     vm.messageIcon={"ConnectionRequest":"css/connectionRequestIcon.png","ConnectionResponse":"css/connectionResponseIcon.png","MusicSharing":"css/MusicSharingIcon.png"}
     
@@ -210,6 +256,8 @@
         device_id: "dJUr6sA28ZY:A5A91bH-chjJ8lcq61ofrjoHjak3q6nCFALPGytdEsLzh2DacCx7ihhZHxd6pPSXYMhtx4MlcQekn1rzjB7c809aNzivPFu5jhA-SR6FWbvzfBsO8ySo6um8DVA9dgOgokzz0QU5vbEf"
       }},
     ];
+
+    init();
 
 
   }
