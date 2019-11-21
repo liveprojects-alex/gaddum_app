@@ -2262,9 +2262,10 @@ div#scroller.ng-hide {
     
 }
 
-#messagesListSenderName{
+.messagesListSenderName{
     position: absolute;
-    right: 8%;
+    /* left:55% */
+    left:12rem;
     top: 34%;
     color: black;
 }

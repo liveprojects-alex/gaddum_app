@@ -43,14 +43,16 @@
     vm.messagesList = messagesService.messagesList;
 
     vm.messages=[
-    {"From":"11111111-5500-4cf5-8d42-228864f4807a","Content":"Sword 1","message_ID":"Aatrox"},
-    {"From":"22222222-5500-4cf5-8d42-228864f4807a","Content":"Fox 2","message_ID":"Ahri"},
-    {"From":"33333333-5500-4cf5-8d42-228864f4807a","Content":"Ninja 3","message_ID":"Akali"},
-    {"From":"44444444-5500-4cf5-8d42-228864f4807a","Content":"Cow 4","message_ID":"Alistar"},
-    {"From":"55555555-5500-4cf5-8d42-228864f4807a","Content":"Sad boi 5","message_ID":"Amumu"},
+    {"From":"11111111-5500-4cf5-8d42-228864f4807a","Content":"Sword 1","message_ID":"Aatrox","message_type":"connectionRequest","sender_name":"Darkin swordsman"},
+    {"From":"22222222-5500-4cf5-8d42-228864f4807a","Content":"Fox 2","message_ID":"Ahri","message_type":"connectionResponse","sender_name":"Magic fox"},
+    {"From":"33333333-5500-4cf5-8d42-228864f4807a","Content":"Ninja 3","message_ID":"Akali","message_type":"musicSharing","sender_name":"Balance Ninja"},
+    {"From":"44444444-5500-4cf5-8d42-228864f4807a","Content":"Cow 4","message_ID":"Alistar","message_type":"connectionRequest","sender_name":"Free Cow"},
+    {"From":"55555555-5500-4cf5-8d42-228864f4807a","Content":"Sad boi 5","message_ID":"Amumu","message_type":"connectionRequest","sender_name":"Sad Mummy"},
     //{"From":"66666666-5500-4cf5-8d42-228864f4807a","Content":"Egg 6","message_ID":"Anivia"},
     ];
 
+    vm.messageIcon={"ConnectionRequest":"css/connectionRequestIcon.png","ConnectionResponse":"css/connectionResponseIcon.png","MusicSharing":"css/MusicSharingIcon.png"}
+    
     vm.friends=[
 
     ]
@@ -62,7 +64,7 @@
           sender=message.From;
         }
       });
-      console.log("sender/id"+sender,currentMessageID)
+      //console.log("sender/id"+sender,currentMessageID)
       vm.createMessageProfileGraphic(sender,currentMessageID);
     }
     var scale = 8;
