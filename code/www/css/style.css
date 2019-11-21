@@ -2250,3 +2250,22 @@ div#scroller.ng-hide {
   #aboutTextDiv{
       width: 90%;
   }
+
+  #messagesListscroll{
+    position: absolute;
+    top: 0rem;
+    height: 27.5rem;
+    /* height: 90%;
+    width:90%;
+    left:5%;
+    border-radius: 3em; */
+    
+}
+
+.messagesListSenderName{
+    position: absolute;
+    /* left:55% */
+    left:12rem;
+    top: 34%;
+    color: black;
+}
