@@ -24,7 +24,7 @@
     ) {
 
         var FILE_LIST_DB_LOCATION = "www/data/file_list.json";
-        var FILE_LIST_MAPPING_LOCATION = "www/sql/file_list.json";
+        var FILE_LIST_MAPPING_DIR = "www/sql";
         var DEFAULT_FILE_SPEC = 0;
 
 
@@ -46,7 +46,7 @@
                             fileSpec.path,
                             function () {
                                 mappingService.initialise(
-                                    FILE_LIST_MAPPING_LOCATION,
+                                    FILE_LIST_MAPPING_DIR,
                                     fnSuccess,
                                     function (error) {
                                         console.log(JSON.stringify(error));
@@ -70,7 +70,7 @@
                 dbService.openDB(
                     function () {
                         mappingService.initialise(
-                            FILE_LIST_MAPPING_LOCATION,
+                            FILE_LIST_MAPPING_DIR,
                             fnSuccess,
                             function (error) {
                                 console.log(JSON.stringify(error));

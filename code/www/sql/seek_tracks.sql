@@ -1,1 +1,1 @@
-SELECT * FROM tracks t1 WHERE  t1.name like ?! or t1.album like ?2 or t1.artist like ?3 or t1.id=?4;
+SELECT * FROM tracks t1 WHERE  t1.name like ?1 or t1.album like ?2 or t1.artist like ?3 or t1.id=?4;

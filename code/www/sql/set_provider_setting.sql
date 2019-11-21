@@ -1,6 +1,6 @@
 UPDATE music_provider_settings
 SET 
-    [value]=?1
+    [value]=?3
 WHERE
-    [provider]=?2 AND
-    [id]=?3
+    [provider]=?1 AND
+    [id]=?2

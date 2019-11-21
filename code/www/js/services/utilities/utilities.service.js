@@ -189,14 +189,13 @@
                 function (fileEntry) {
                     fileEntry.file(function (file) {
                         var reader = new FileReader();
-
                         reader.onloadend = function (arg) {
 
                             try {
                                 var result = JSON.parse(this.result);
                                 success(result);
-                            } catch (e) {
-                                fail();
+                            } catch(error) {
+                                fail(error);
                             }
 
                         }
@@ -207,6 +206,21 @@
                 fail
             );
         };
+
+
+        service.readDir = function (path, success, fail ){
+            
+            window.resolveLocalFileSystemURL(cordova.file.applicationDirectory + path,
+              function (fileSystem) {
+                var reader = fileSystem.createReader();
+                reader.readEntries(
+                  success,
+                  fail
+                );
+              }, 
+              fail
+            );
+          }
 
         service.convertStringToArray = function (arg1, fnSuccess, fnFail) {
             var candidate = arg1;
