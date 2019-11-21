@@ -77,13 +77,12 @@
       });
     };
 
-    service.handleInboundDisconnection = function handleInboundDisconnection( message ) {
+//    service.handleInboundDisconnection = function handleInboundDisconnection( message ) {
       // the subscriber PushNotificationService recognises the connection_teardown.
       // the subscriber PushNotificationService calls unsubscribe() on the PushProviderPlugin, using the PushMessage senderId.
       // The connection is now no longer accessible, and the 2 devices cannot communicate, without re-establishing the connection.
       // PushNotificationService passes the message to the inboundMessageCallback (out to the rest of the app)
-
-    }
+//    }
 
     service.addInboundMessageCallback = function addInboundMessageCallback(id, fnCallback) {
       service.callbacks[ id ] = fnCallback;
@@ -111,9 +110,10 @@
       //        // handle message
       //     });
 
-      // handle teardown - https://trello.com/c/G1eEO92o/20-pushnotificationservice
+      // handle teardown - inbound messages
       if(message.payload.hasOwnProperty("message_type")) {
         if( message.payload.message_type === service.message_type.CONNECTION_TEARDOWN ) {
+          console.log("messagingService.inboundHandler: asking for a teardown - got this:", message);
           pushService.unsubscribe( message.sender_id );
         }
       }

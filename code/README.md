@@ -129,4 +129,12 @@ Put the Client ID in the Database. It must go in the following table:
 |gaddumMusicProviderSpotifyService|client_id|~xx9xxxdc21redactedxxa1d74xx5b03e~|string|
 
 
+## Android build with android-barcode-scanner
+
+Make sure phonegap-plugin-bardocdescanner is version 6.0.1
+
+~~(See here to solve first issue, cause by two references to the `uses-feature` tag)[https://github.com/phonegap/phonegap-plugin-barcodescanner/issues/418#issuecomment-361588203]~~
+
+~~(Here is the solution to the `Execution failed for task ':transformClassesWithJarMergingForDebug' issue)[https://github.com/phonegap/phonegap-plugin-push/issues/2792#issuecomment-512662354] *(Use cordova-push-plugin@2.2.1)*~~
+
 
