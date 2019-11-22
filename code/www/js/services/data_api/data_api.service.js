@@ -278,7 +278,7 @@
         }
 
         function getSetting(id, fnSuccess, fnFail) {
-            console.log("dataApiService: getSetting: " + id);
+            //console.log("dataApiService: getSetting: " + id);
             mappingService.query("get_setting", [id],
                 function (result) {
                     var rows = mappingService.getResponses(result.rows);
@@ -662,8 +662,8 @@
             var deferred = $q.defer();
 
             var name = '%' + name + '%'; // SQL search term
-            console.log("----------");
-            console.log("looking for playlist: " + " name: " + name + " id: " + id);
+            //console.log("----------");
+            //console.log("looking for playlist: " + " name: " + name + " id: " + id);
 
 
 
@@ -1102,8 +1102,8 @@
 
         function asyncGetGenericTracksInPlaylist(playlistIdentifier) {
             var deferred = $q.defer();
-            console.log("----------");
-            console.log("looking for playlist: " + playlistIdentifier.getId());
+            //console.log("----------");
+            //console.log("looking for playlist: " + playlistIdentifier.getId());
             mappingService.query(
                 "get_tracks_in_playlist",
                 [
@@ -1131,8 +1131,8 @@
         function asyncAssociatePlaylistAndTrack(namedIdentifierPlaylist, namedIdentifierTrack, order) {
             var deferred = $q.defer();
 
-            console.log("----------");
-            console.log("associating: " + namedIdentifierPlaylist.getId() + " with: " + namedIdentifierTrack.getId() + " at order: " + order);
+            //console.log("----------");
+            //console.log("associating: " + namedIdentifierPlaylist.getId() + " with: " + namedIdentifierTrack.getId() + " at order: " + order);
 
             var args = [
                 utilitiesService.createUuid(),
@@ -1185,8 +1185,8 @@
 
 
         function asyncRemovePlaylist(playlistIdentifier) {
-            console.log("----------");
-            console.log("removing playlist: " + playlistIdentifier.getId());
+            //console.log("----------");
+            //console.log("removing playlist: " + playlistIdentifier.getId());
             var deferred = $q.defer();
 
             $timeout(
@@ -1217,8 +1217,8 @@
 
         function asyncUpdatePlaylist(playlistIdentifier) {
             var deferred = $q.defer();
-            console.log("----------");
-            console.log("updating playlist: " + playlistIdentifier.getId() + " name: " + playlistIdentifier.getName());
+            //console.log("----------");
+            //console.log("updating playlist: " + playlistIdentifier.getId() + " name: " + playlistIdentifier.getName());
             $timeout(
 
                 function () {
@@ -1445,8 +1445,8 @@
         ) {
 
             var deferred = $q.defer();
-            console.log("----------");
-            console.log("seeking observations");
+            //console.log("----------");
+            //console.log("seeking observations");
             $timeout(
 
                 function () {
