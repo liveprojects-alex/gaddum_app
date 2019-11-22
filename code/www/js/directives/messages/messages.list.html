@@ -6,7 +6,7 @@
       <ion-list can-swipe="true" id="friendsList">
         <ion-item ng-repeat="message in vm.messages" ng-class-odd="'item-thumbnail-left listodd'" ng-class-even="'listeven item-thumbnail-left'"
         can-swipe="true" class="item-remove-animate item item-complex" ng-touchstart="vm.preventSlideBox($event)"
-        ng-touchend="vm.allowSlideBox($event)" ng-mousedown="vm.preventSlideBox($event)" ng-mouseup="vm.allowSlideBox($event)">
+        ng-touchend="vm.allowSlideBox($event)" ng-mousedown="vm.preventSlideBox($event)" ng-mouseup="vm.allowSlideBox($event)" ng-click="vm.messageClick($index)">
 
 
         <img ng-src="css/{{message.message_type}}.png"/>

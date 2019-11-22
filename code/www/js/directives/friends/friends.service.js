@@ -58,23 +58,36 @@
             {"profile": {
               "profile_id": "11111111-5500-4cf5-8d42-228864f4807a",
               "avatar_name": "Pineapple Fruit-Butter",
-              "avatar_graphic": [
+              "avatar_graphic":
+                {"values":[
+                  0,
+                  0,
+                  0,
+                  24,/* 60 */
+                  24,
+                  0,
+                  0,
+                  0
+                ],
+                "colour":"#FF00FF"},
+              /* "avatar_graphic": [
                 0,
                 0,
                 0,
-                24,/* 60 */
+                24,
                 24,
                 0,
                 0,
                 0
               ],
-              "avatar_graphic_colour":"#FF00FF",
+              "avatar_graphic_colour":"#FF00FF", */
               device_id: "dJUr6sA28ZY:A1A91bH-chjJ8lcq61ofrjoHjak3q6nCFALPGytdEsLzh2DacCx7ihhZHxd6pPSXYMhtx4MlcQekn1rzjB7c809aNzivPFu5jhA-SR6FWbvzfBsO8ySo6um8DVA9dgOgokzz0QU5vbEf"
             }},
             {"profile": {
               "profile_id": "22222222-5500-4cf5-8d42-228864f4807a",
               "avatar_name": "Strawberry Jam",
-              "avatar_graphic": [
+              "avatar_graphic":
+                {"values":[
                 0,
                 96,
                 96,
@@ -93,13 +106,15 @@
                 126,
                 0 */
               ],
-              "avatar_graphic_colour":"#FF00FF",
+              "colour":"#FF00FF"},
+              /* "avatar_graphic_colour":"#FF00FF", */
               device_id: "dJUr6sA28ZY:A2A91bH-chjJ8lcq61ofrjoHjak3q6nCFALPGytdEsLzh2DacCx7ihhZHxd6pPSXYMhtx4MlcQekn1rzjB7c809aNzivPFu5jhA-SR6FWbvzfBsO8ySo6um8DVA9dgOgokzz0QU5vbEf"
             }},
             {"profile": {
               "profile_id": "33333333-5500-4cf5-8d42-228864f4807a",
               "avatar_name": "Raspberry Puree",
-              "avatar_graphic": [
+              "avatar_graphic":
+                {"values":[
                 0,
                 96,
                 96,
@@ -109,13 +124,15 @@
                 6,
                 0
               ],
-              "avatar_graphic_colour":"#FF00FF",
+              "colour":"#FF00FF"},
+              /* "avatar_graphic_colour":"#FF00FF", */
               device_id: "dJUr6sA28ZY:A3A91bH-chjJ8lcq61ofrjoHjak3q6nCFALPGytdEsLzh2DacCx7ihhZHxd6pPSXYMhtx4MlcQekn1rzjB7c809aNzivPFu5jhA-SR6FWbvzfBsO8ySo6um8DVA9dgOgokzz0QU5vbEf"
             }},
             {"profile": {
               "profile_id": "44444444-5500-4cf5-8d42-228864f4807a",
               "avatar_name": "Apple Curd",
-              "avatar_graphic": [
+              "avatar_graphic":
+                {"values":[
                 0,
                 102,
                 102,
@@ -125,13 +142,15 @@
                 102,
                 0
               ],
-              "avatar_graphic_colour":"#FF00FF",
+              "colour":"#FFFF00"},
+              /* "avatar_graphic_colour":"#FF00FF", */
               device_id: "dJUr6sA28ZY:A4A91bH-chjJ8lcq61ofrjoHjak3q6nCFALPGytdEsLzh2DacCx7ihhZHxd6pPSXYMhtx4MlcQekn1rzjB7c809aNzivPFu5jhA-SR6FWbvzfBsO8ySo6um8DVA9dgOgokzz0QU5vbEf"
             }},
             {"profile": {
               "profile_id": "55555555-5500-4cf5-8d42-228864f4807a",
               "avatar_name": "Banana Fruit-Spread",
-              "avatar_graphic": [
+              "avatar_graphic":
+                {"values":[
                 0,
                 102,
                 102,
@@ -141,7 +160,8 @@
                 102,
                 0
               ],
-              "avatar_graphic_colour":"#FF00FF",
+              "colour":"#FF00FF"},
+              /* "avatar_graphic_colour":"#FF00FF", */
               device_id: "dJUr6sA28ZY:A5A91bH-chjJ8lcq61ofrjoHjak3q6nCFALPGytdEsLzh2DacCx7ihhZHxd6pPSXYMhtx4MlcQekn1rzjB7c809aNzivPFu5jhA-SR6FWbvzfBsO8ySo6um8DVA9dgOgokzz0QU5vbEf"
             }},
           ];
