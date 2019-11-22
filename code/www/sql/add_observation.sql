@@ -12,15 +12,15 @@ INSERT INTO observations (
                              track
                          )
                          VALUES (
-                             'replacement_parameter_id',
-                             'replacement_parameter_timestamp_ms',
-                             'replacement_parameter_mood_id',
-                             'replacement_parameter_timeslot',
-                             'replacement_parameter_location_lat',
-                             'replacement_parameter_location_lon',
-                             'replacement_parameter_location_code',
-                             'replacement_parameter_track_percent',
-                             'replacement_parameter_num_repeats',
-                             'replacement_parameter_mood_suitable',
-                             'replacement_parameter_track'
+                             ?1,
+                             ?2,
+                             ?3,
+                             ?4,
+                             ?5,
+                             ?6,
+                             ?7,
+                             ?8,
+                             ?9,
+                             ?10,
+                             ?11
                          );

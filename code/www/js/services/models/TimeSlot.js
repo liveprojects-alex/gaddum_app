@@ -9,6 +9,7 @@
     'moment'
   ];
 
+
   function TimeSlot(
     moment
   ) {
@@ -17,32 +18,28 @@
       this.id = null;
       this.start_time = null;
       this.end_time = null;
-      this.startParsed = null; // parsed as moment on creation
-      this.endParsed = null;
+
 
       this.getId = function () {
         return this.id;
       }
 
       this.getStartTime = function(){
-        return this.startParsed.toDate();
+        return moment(this.start_time, 'HH:mm:ss').toDate();
       }
 
       this.getEndTime = function(){
-        return this.endParsed.toDate();
+        return moment(this.end_time, 'HH:mm:ss').toDate();
       }
-
-
+      
       this.isDateWithinTimeSlot = function (date) {
         var result = false;
-        var candidate = moment(date,'HH:mm:ss');
 
+        
+        var result = moment(date).isBetween(
+          moment(this.start_time, 'HH:mm:ss'), 
+          moment(this.end_time, 'HH:mm:ss'));
 
-        if (candidate.isSameOrAfter(this.startParsed)) {
-          if (candidate.isSameOrBefore(this.endParsed)) {
-            result = true;
-          }
-        }
 
         return result;
 
@@ -62,12 +59,6 @@
       var result = new TimeSlot();
 
       result = angular.merge(result, candidate);
-
-      result.startParsed = moment(result.start_time, 'HH:mm:ss');
-      result.endParsed = moment(result.end_time, 'HH:mm:ss');
-
-
-
 
 
       return result;

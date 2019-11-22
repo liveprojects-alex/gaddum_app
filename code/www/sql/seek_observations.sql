@@ -7,6 +7,18 @@
 -- then: mood and unsuitable
 -- joins with generic tracks so we get comprehensive output
 
+-- ?1 mood_id,
+-- ?2 timeslot_id,
+-- ?3 postcode_id,
+-- ?4 lat,
+-- ?5 lon,
+-- ?6 limit_m_l_t_s,
+-- ?7 limit_m_t_s,
+-- ?8 limit_m_l_s,
+-- ?9 limit_m_s,
+-- ?10 limit_t_s,
+-- ?11 limit_m_u_s
+
 with 
 priorities as (
 WITH T(priority) AS (
@@ -20,63 +32,63 @@ select
 t1.*
 ,t2.priority
 ,(
-(replacement_parameter_location_lat - t1.location_lat) * (replacement_parameter_location_lat - t1.location_lat) 
+(?4 - t1.location_lat) * (?4 - t1.location_lat) 
 +
-(replacement_parameter_location_lon - t1.location_lon) * (replacement_parameter_location_lat - t1.location_lon)) 
+(?5 - t1.location_lon) * (?5 - t1.location_lon)) 
 as dist
 from observations t1 join priorities t2 on
 t2.priority = 1 
 AND 
-t1.mood_id = 'replacement_parameter_mood_id' 
+t1.mood_id = ?1 
 AND t1.mood_suitable = 'true'
-AND t1.timeslot = replacement_parameter_timeslot
-AND t1.location_code = 'replacement_parameter_location_code' -- filter first on postcode
+AND t1.timeslot = ?2
+AND t1.location_code = ?3 -- filter first on postcode
 ORDER BY  
 dist ASC, -- ordering by something related to distance from specified location -- closest first
 t1.timestamp_ms DESC -- oldest first
-LIMIT replacement_parameter_limit_m_l_t_s
+LIMIT ?6
 ),
 m_l_s as
 (
 select t1.*,t2.priority
 ,(
-(replacement_parameter_location_lat - t1.location_lat) * (replacement_parameter_location_lat - t1.location_lat) 
+(?4 - t1.location_lat) * (?4 - t1.location_lat) 
 +
-(replacement_parameter_location_lon - t1.location_lon) * (replacement_parameter_location_lat - t1.location_lon)) 
+(?5 - t1.location_lon) * (?5 - t1.location_lon)) 
 as dist 
 from observations t1 join priorities t2 on 
 t2.priority = 2 
-AND t1.mood_id = 'replacement_parameter_mood_id' 
+AND t1.mood_id = ?1 
 AND t1.mood_suitable = 'true'
-AND NOT t1.timeslot = replacement_parameter_timeslot
-AND t1.location_code = 'replacement_parameter_location_code' -- filter first on postcode
+AND NOT t1.timeslot = ?2
+AND t1.location_code = ?3 -- filter first on postcode
 ORDER BY -- ordering by something related to distance from specified location - closest first
 dist ASC, t1.timestamp_ms ASC -- favour oldest first
-LIMIT replacement_parameter_limit_m_l_s 
+LIMIT ?8
 )
 ,
 m_t_s as
 (
 select t1.*,t2.priority from observations t1 join priorities t2 on 
 t2.priority = 3 
-AND t1.mood_id = 'replacement_parameter_mood_id' 
+AND t1.mood_id = ?1 
 AND t1.mood_suitable = 'true'
-AND t1.timeslot = replacement_parameter_timeslot
-AND NOT t1.location_code = 'replacement_parameter_location_code' 
+AND t1.timeslot = ?2
+AND NOT t1.location_code = ?3 
 ORDER BY t1.timestamp_ms ASC -- favour oldest first
-LIMIT replacement_parameter_limit_m_t_s
+LIMIT ?7
 )
 ,
 m_s as
 (
 select t1.*,t2.priority from observations t1 join priorities t2 on 
 t2.priority = 4 
-AND t1.mood_id = 'replacement_parameter_mood_id' 
+AND t1.mood_id = ?1 
 AND t1.mood_suitable = 'true'
-AND NOT t1.timeslot = replacement_parameter_timeslot 
-AND NOT t1.location_code = 'replacement_parameter_location_code'
+AND NOT t1.timeslot = ?2 
+AND NOT t1.location_code = ?3
 ORDER BY t1.timestamp_ms ASC -- favour_oldest first
-LIMIT replacement_parameter_limit_m_s
+LIMIT ?9
 )
 ,
 t_s as
@@ -87,20 +99,20 @@ t1.*
 from observations t1 join priorities t2 on
 t2.priority = 5 
 AND t1.mood_suitable = 'true'
-AND t1.timeslot = replacement_parameter_timeslot
+AND t1.timeslot = ?2
 ORDER BY t1.timestamp_ms -- favour oldest first
-LIMIT replacement_parameter_limit_t_s
+LIMIT ?10
 ),
 m_u_s as
 (
 select t1.*,t2.priority from observations t1 join priorities t2 on 
 t2.priority = 6 
-AND t1.mood_id = 'replacement_parameter_mood_id' 
+AND t1.mood_id = ?1 
 AND t1.mood_suitable = 'false'
-AND NOT t1.timeslot = replacement_parameter_timeslot 
-AND NOT t1.location_code = 'replacement_parameter_location_code'
+AND NOT t1.timeslot = ?2 
+AND NOT t1.location_code = ?3
 ORDER BY t1.timestamp_ms ASC -- favour_oldest first
-LIMIT replacement_parameter_limit_m_u_s
+LIMIT ?11
 )
 ,
 collation as

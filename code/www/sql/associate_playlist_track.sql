@@ -6,7 +6,7 @@ INSERT INTO
     [order]
     )
 SELECT       
-    "replacement_parameter_id",
-    "replacement_parameter_playlist_id",
-    "replacement_parameter_track_id",
-    "replacement_parameter_order"
+    ?1,
+    ?2,
+    ?3,
+    ?4

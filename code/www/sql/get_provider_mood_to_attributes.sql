@@ -1,5 +1,5 @@
 SELECT * FROM music_provider_mood_to_attributes
 WHERE
-[provider] = "replacement_parameter_provider_id"
+[provider] = ?1
 AND
-[mood] = "replacement_parameter_mood_id"
+[mood] = ?2

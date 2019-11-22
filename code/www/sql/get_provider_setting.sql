@@ -1,5 +1,5 @@
 SELECT * FROM music_provider_settings
 WHERE
-[provider] = "replacement_parameter_provider_id"
+[provider] = ?1
 AND
-[id] = "replacement_parameter_setting_id"
+[id] = ?2

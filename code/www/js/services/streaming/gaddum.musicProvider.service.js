@@ -1,7 +1,6 @@
 (function () {
   'use strict';
 
-  console.log("HERE: gaddumMusicProviderService");
 
   angular
     .module('gaddum.streaming')
@@ -471,7 +470,7 @@
         function () {
           MUSIC_PROVIDER.asyncPlayCurrentTrack().then(
             function onSuccess() {
-              console.log("starting polling...");
+              //console.log("starting polling...");
               startPositionPolling();
 
               deferred.resolve(true);

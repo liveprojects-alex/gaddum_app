@@ -1,8 +1,6 @@
 (function () {
     'use strict';
 
-    console.log("HERE: Gaddum Player");
-
     angular
         .module('gaddum.player')
         .factory('playerService', playerService);
@@ -252,7 +250,7 @@
         }
 
         function asyncControlSkipNext() {
-            console.log("control Skip Next.");
+            //console.log("control Skip Next.");
             var deferred = $q.defer();
 
             asyncDoSkipNext().then(
@@ -277,7 +275,7 @@
         }
 
         function asyncControlSkipPrev() {
-            console.log("control Skip Next.");
+            //console.log("control Skip Next.");
 
             var deferred = $q.defer();
 
@@ -305,7 +303,7 @@
 
         function asyncControlPlay() {
             var deferred = $q.defer();
-            console.log("control Play.");
+            //console.log("control Play.");
             var defered = $q.defer();
             gaddumMusicProviderService.asyncPlayCurrentTrack().then(
                 deferred.resolve,
@@ -322,7 +320,7 @@
         }
 
         function asyncControlPause() {
-            console.log("control Pause.");
+            //console.log("control Pause.");
 
             var deferred = $q.defer();
             gaddumMusicProviderService.asyncPauseCurrentTrack().then(
