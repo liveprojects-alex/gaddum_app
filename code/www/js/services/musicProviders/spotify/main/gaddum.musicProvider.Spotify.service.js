@@ -21,7 +21,10 @@
     'GenericImportTrack',
     'dataApiService',
     'ImportPlaylist',
-    'PlaylistIdentifier'
+    'PlaylistIdentifier',
+    'authenticateSrvc',
+    'credentialsSrvc'
+    
   ];
 
   function gaddumMusicProviderSpotifyService(
@@ -40,7 +43,9 @@
     GenericImportTrack,
     dataApiService,
     ImportPlaylist,
-    PlaylistIdentifier
+    PlaylistIdentifier,
+    authenticateSrvc,
+    credentialsSrvc
 
   ) {
 
@@ -52,7 +57,6 @@
     var CACHED_ACCESS_CREDENTIALS = null;
     var CURRENT_TRACK_INFO = null;
 
-    var AUTH_CONFIG = null;
 
     var TRACK_PLAYING = false;
     var MOOD_TO_ATTRIBUTE_LOOKUP = null;
@@ -131,7 +135,7 @@
     function asyncLogin() {
 //      console.log("asyncAuthLogin");
 
-      return cordova.plugins.spotifyAuth.authorize(AUTH_CONFIG) // spotify auth actually caches the cred for you, but we're using the database
+      return authenticateSrvc.authenticate()
         .then(
           function (result) {
             asyncAuthSuccess(result);
@@ -149,7 +153,7 @@
     function asyncRefresh() {
 //      console.log("asyncRefresh");
 
-      return cordova.plugins.spotifyAuth.authorize(AUTH_CONFIG) // spotify auth actually caches the cred for you, but we're using the database
+      return authenticateSrvc.authenticate()
         .then(
           function (result) {
             asyncAuthSuccess(result);
@@ -304,38 +308,11 @@
       TRACK_PLAYING = false;
       MUSIC_PROVIDER_IDENTIFIER = musicProviderIdentifier;
       EVENT_HANDLER_PROMISE = eventHandlerPromise;
-      AUTH_CONFIG = {
-        clientId: null,
-        encryptionSecret: null,
-        redirectUrl: null,
-        scopes: ["streaming"],
-        //scopes: ["streaming", "playlist-read-private", "user-read-email", "user-read-private"], // enable as needed
-        tokenExchangeUrl: null,
-        tokenRefreshUrl: null
-      }
 
 
 
       var deferred = $q.defer();
       var promises = [];
-
-
-      promises.push(providerSettingsService.asyncGet(MUSIC_PROVIDER_IDENTIFIER, 'client_id').then(
-        function (result) {
-          AUTH_CONFIG.clientId = result;
-        }));
-      promises.push(providerSettingsService.asyncGet(MUSIC_PROVIDER_IDENTIFIER, 'redirect_url').then(
-        function (result) {
-          AUTH_CONFIG.redirectUrl = result;
-        }));
-      promises.push(providerSettingsService.asyncGet(MUSIC_PROVIDER_IDENTIFIER, 'token_exchange_url').then(
-        function (result) {
-          AUTH_CONFIG.tokenExchangeUrl = result;
-        }));
-      promises.push(providerSettingsService.asyncGet(MUSIC_PROVIDER_IDENTIFIER, 'token_refresh_url').then(
-        function (result) {
-          AUTH_CONFIG.tokenRefreshUrl = result;
-        }));
 
       promises.push(asyncGetMoodAttributesLookup().then(
         function (result) {
@@ -346,8 +323,7 @@
 
       $q.all(promises).then(
         function (results) {
-//          console.log("got AUTH_CONFIG");
-          deferred.resolve(AUTH_CONFIG);
+          deferred.resolve();
         },
         function (error) {
           deferred.reject(error);
@@ -380,11 +356,6 @@
 
 
     function asyncLogout() {
-
-
-      // Cordova Auth hides in local storage
-      cordova.plugins.spotifyAuth.forget();
-
 
       // .. and our own in the DB
       var deferred = $q.defer();
@@ -1305,11 +1276,10 @@
 
         function () {
           if (trackInfo) {
-            if (AUTH_CONFIG) {
               asyncGetAccessCredentials().then(
                 function onAuth(authToken) {
                   cordova.plugins.spotify.play(trackInfo.getPlayerUri(), {
-                    clientId: AUTH_CONFIG.clientId,
+                    clientId: credentialsSrvc.clientId,
                     token: authToken.getAccessToken()
                   })
                     .then(
@@ -1333,9 +1303,7 @@
                   deferred.reject(ErrorIdentifier.build(ErrorIdentifier.SYSTEM, "attempting to play, but no access credentials."));
                 }
               );
-            } else {
-              deferred.reject(ErrorIdentifier.build(ErrorIdentifier.SYSTEM, "attempting to play, but AUTH_CONFIG is null."));
-            }
+            
           } else {
             deferred.reject(ErrorIdentifier.build(ErrorIdentifier.SYSTEM, "attempting to play, but CURRENT_TRACK_INFO is null."));
           }
