@@ -114,12 +114,12 @@
             return deferred.promise;
         };
 
-        // TODO - get from connection service
         function asyncGetDeviceId(){
             var deferred = $q.defer();
 
             $timeout(
-                function(){
+              function(){
+                //@TODO this should return an actual device id?!?
                     deferred.resolve("dJUr6sA28ZY:A9A91bH-chjJ8lcq61ofrjoHjak3q6nCFALPGytdEsLzh2DacCx7ihhZHxd6pPSXYMhtx4MlcQekn1rzjB7c809aNzivPFu5jhA-SR6FWbvzfBsO8ySo6um8DVA9dgOgokzz0QU5vbEf");
                 }
             );
@@ -130,7 +130,7 @@
 
 
         function asyncGetProfileId() {
-            var deferred = $q.defer()
+          var deferred = $q.defer();
 
             dataApiService.asyncGetSetting(SETTINGS.PROFILE_ID).then(
                 function onSuccess(profileId) {
@@ -192,7 +192,7 @@
         function setModalOpenFlag(value){
             openModalFlag=value;
         };
-        
+
         function getOpenModalFlag(){
             return openModalFlag;
         };

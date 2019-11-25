@@ -5,13 +5,17 @@
     .controller('friendsAddFriendModalController', friendsAddFriendModalController);
 
     friendsAddFriendModalController.$inject = [
-    '$scope',
-    'FriendsAddFriendModal'
+      '$scope',
+      'FriendsAddFriendModal',
+      'messagingService',
+      'userSettingsService'
   ];
 
   function friendsAddFriendModalController(
     $scope,
-    FriendsAddFriendModal
+    FriendsAddFriendModal,
+    messagingService,
+    userSettingsService
   ) {
 
     var vm = angular.extend(this, {
@@ -54,7 +58,24 @@
         cordova.plugins.barcodeScanner.scan(
           function (result) {
             console.log("We got a barcode", result);
-            vm.addFriendsModalNext();
+            userSettingsService.asyncGet(messagingService.deviceIdKey).then(function(devKey){
+              messagingService.sendMessage(
+                {
+                  message_type: messagingService.message_type.CONNECTION_REQUEST,
+                  destination_id: [
+                    // TODO: How to get a user device key from this?
+                    result.text
+                  ],
+                  sender_id: devKey,
+                  payload: {
+                    partyOneId: messagingService.__getDevKey(), //devKey, // only while asyncGet is returning null
+                    partyTwoId: result.text
+                  }
+                },
+                messagingService.message_type_endpoints[messagingService.message_type.CONNECTION_REQUEST]
+              );
+              vm.addFriendsModalNext();
+            });
           },
           function (error) {
             alert("Scanning failed: " + error);

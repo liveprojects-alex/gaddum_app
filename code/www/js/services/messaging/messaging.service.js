@@ -11,6 +11,7 @@
     'pushService',
     'pubsubService',
     'userSettingsService',
+    'utilitiesService',
     '$q'
   ];
   function messagingService(
@@ -18,6 +19,7 @@
     pushService,
     pubsubService,
     userSettingsService,
+    utilitiesService,
     $q
   ) {
 
@@ -26,6 +28,12 @@
       deviceIdKey: "push_device_id"
     };
 
+    // aim to remove this - see also friendsAddFriendModalController.js, line ~70
+    service.__getDevKey = function __getDevKey() {
+      return pushService.registrationId;
+    };
+    // end of aim to remove this
+
     service.message_type = {
       "NONE":                0,
       "CONNECTION_REQUEST":  1,
@@ -33,6 +41,14 @@
       "CONNECTION_TEARDOWN": 3,
       "SYSTEM_MESSAGE":      4,
       "MESSAGE":             5
+    };
+    service.message_type_endpoints = {
+      0: "/messages",
+      1: "/connections",
+      2: "/connections",
+      3: "/connections",
+      4: "/messages",
+      5: "/messages"
     };
 
     service.initialise = function initialise() {
@@ -124,28 +140,32 @@
 
     };
 
-    service.sendMessage = function sendMessage(p) {
-      if(p.payload.hasOwnProperty("dateStamp")===false){
+    service.sendMessage = function sendMessage( p ) {
+      /*if(p.payload.hasOwnProperty("dateStamp")===false){
         p.payload.dateStamp = new Date().getTime();
+        }*/
+      var endpoint = service.message_type_endpoints[0];
+      if(p.payload.hasOwnProperty("message_id")===false) {
+        p.payload.uuid = utilitiesService.createUuid()
       }
-      if(p.payload.hasOwnProperty("uuid")===false) {
-        function makeUUID() { // thanks https://stackoverflow.com/a/2117523
-          return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(
-            /[018]/g, function(c){
-              (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).
-                toString(16);
-            }
-          );
-        };
-        p.payload.uuid = makeUUID();
+      if(p.hasOwnProperty("message_type")===false) {
+        p.message_type = service.message_type.MESSAGE;
       }
-      if(p.payload.hasOwnProperty("message_type")===false) {
-        p.payload.message_type = service.message_type.MESSAGE;
+      if(p.hasOwnProperty("message_type")===true) {
+        endpoint = service.message_type_endpoints[ p.message_type ];
       }
-      pushService.sendPayload(p);
+      return( pushService.sendPayload( p, endpoint ) );
     };
 
     return service;
   }
+
+  /*function makeUUID() { // thanks https://stackoverflow.com/a/2117523
+    return( [1e7]+-1e3+-4e3+-8e3+-1e11).replace(
+      /[018]/g, function(c){
+        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16);
+      }
+    );
+  };*/
 
 })();

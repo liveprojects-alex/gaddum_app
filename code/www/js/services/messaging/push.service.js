@@ -1,4 +1,5 @@
-const SERVER_ROOT = "https://gaddum.restlet.io:443"; // heroku service hides secret
+//const SERVER_ROOT = "https://gaddum.restlet.io:443"; // heroku service hides secret
+const SERVER_ROOT = "https://rescuestationpush.herokuapp.com:443"; // heroku service hides secret
 
 // push service is very low-level; better to interface with the messaging service, which should
 // give much cleaner interfaces to registering, recieving, subscribing, unsubscribing, and
@@ -71,7 +72,7 @@ const SERVER_ROOT = "https://gaddum.restlet.io:443"; // heroku service hides sec
       // event handlers for message types
 
       service.push.on('registration',function( data ){
-        //console.log("push.registration event, ", data);
+        console.log("push.registration event, ", data);
         service.registrationId = data.registrationId;
         if( registeredCallback !== undefined ) {
           registeredCallback( data );
@@ -104,15 +105,19 @@ const SERVER_ROOT = "https://gaddum.restlet.io:443"; // heroku service hides sec
       return($http.delete( SERVER_ROOT + "/connections/" + String(cUUID) ) );
     };
 
+//    service.connect = function connect( payload ) {
+//      console.log("push.service.connct")
+//    }
+
     // pass in a notification object in payload.notification
     // pass in recipient device in payload.recipient_id,
     //   or recipient topic as payload.recipient_id of "/topics/*YOUR_TOPIC*"
-	  service.sendPayload = function sendPayload( payload ) {
+	  service.sendPayload = function sendPayload( payload, endpoint ) {
 
       console.log( " → asked to send this payload:", payload );
 
       var sendRequest = { method: 'POST',
-                          url: SERVER_ROOT + '/messages',
+                          url: SERVER_ROOT + endpoint,
                           data: JSON.stringify(payload)
                          };
 
