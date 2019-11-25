@@ -25,7 +25,7 @@
 
     var service = {
       callbacks: { },
-      deviceIdKey: "push_device_id"
+      deviceIdKey: "push_device_id" // @TODO DRY - it's in profileService.SETTINGS.DEVICE_ID
     };
 
     // aim to remove this - see also friendsAddFriendModalController.js, line ~70
