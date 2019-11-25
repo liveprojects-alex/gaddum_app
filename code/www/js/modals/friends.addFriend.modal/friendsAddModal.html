@@ -1,6 +1,6 @@
 <div class="modal" ng-controller="friendsAddFriendModalController as vm">
   <header class="bar bar-header bar-positive modalHeader">
-    <h1 id="addFriendsModalHeaderText" class="title">{{vm.modalTitle}}</h1>
+    <h1 id="addFriendsModalHeaderText" class="title" ng-bind="vm.modalTitles[vm.modalpage]"></h1>
     <!-- <div class="button button-clear" ng-click="modal.hide()"><span class="icon ion-close"></span></div> -->
   </header>
   <content has-header="true" padding="true">
@@ -22,8 +22,7 @@
       </div>
 
       <div ng-show="vm.modalpage===3">
-        <p>Scanning here...?</p>
-        <button class="addFriendsModalNextButton" ng-click="vm.addFriendsModalNext()">Next</button>
+        <p></p>
       </div>
 
       <div ng-show="vm.modalpage===4">

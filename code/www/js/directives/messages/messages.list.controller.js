@@ -65,24 +65,24 @@
         ]; */
       messagesService.getMessages().then(
         function success(messages) {
-          console.log("got MEssages", messages);
+          //console.log("got MEssages", messages);
           var reducedMessages = messages.map(function (message) {
             return message.message.body;
           });
           vm.messages = reducedMessages;
 
           vm.messages.forEach(function (message) {
-            console.log("message 2+name2", message);
+            //console.log("message 2+name2", message);
             friendsService.searchFriendsByID(message.From).then(function Success(friend) {
-              console.log("friend for name getting", friend);
+              //console.log("friend for name getting", friend);
               /* vm.friendcopy=friend;
               console.log("friend copy",vm.friendcopy);
               
               vm.nametoadd="";
               vm.nametoadd=vm.friendc.avatar_name;*/
-              console.log("name to add", friend.profile.avatar_name);
+              //console.log("name to add", friend.profile.avatar_name);
               message.sender_name = friend.profile.avatar_name;
-              console.log("with added name,", message)
+              //console.log("with added name,", message)
             },
               function fail(err) {
                 console.log(err);
@@ -98,7 +98,7 @@
             messages=tempMessages; */
 
 
-            console.log("set messages", messages);
+            //console.log("set messages", messages);
           },
             function fail(error) {
               console.log(error);
@@ -108,7 +108,7 @@
     }
 
     vm.messageClick = function (index) {
-      console.log("clicked", vm.messages[index]);
+      //console.log("clicked", vm.messages[index]);
     };
     vm.messageIcon = { "ConnectionRequest": "css/connectionRequestIcon.png", "ConnectionResponse": "css/connectionResponseIcon.png", "MusicSharing": "css/MusicSharingIcon.png" }
 
@@ -129,9 +129,9 @@
     var scale = 8;
     vm.createMessageProfileGraphic = function (friendID, messageid) {
       setTimeout(() => {
-        console.log("messageid=",messageid);
+        //console.log("messageid=",messageid);
         var canvas = document.getElementById(messageid);
-        console.log("canvas=",canvas);
+        //console.log("canvas=",canvas);
 
         //canvas = canvas[canvas.length - 1];
         var ctx = canvas.getContext('2d');
