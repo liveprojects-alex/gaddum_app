@@ -2269,3 +2269,13 @@ div#scroller.ng-hide {
     top: 34%;
     color: black;
 }
+
+.openMessageModal{
+    padding:4px;
+    width: 85%;
+    position: absolute;
+    left: 7.5%;
+    top: 6%;
+    height: 79%;
+    background-image: var(--color-secondaryBackground);
+  }

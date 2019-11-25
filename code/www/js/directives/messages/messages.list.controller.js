@@ -11,7 +11,9 @@
     '$ionicSlideBoxDelegate',
     'messagesService',
     'friendsService',
-    '$q'
+    '$q',
+    'openMessageModal',
+    '$timeout'
   ];
 
   function messagesListDirectiveController(
@@ -20,7 +22,9 @@
     $ionicSlideBoxDelegate,
     messagesService,
     friendsService,
-    $q
+    $q,
+    openMessageModal,
+    $timeout
   ) {
     var vm = angular.extend(this, {
 
@@ -107,9 +111,7 @@
         });
     }
 
-    vm.messageClick = function (index) {
-      //console.log("clicked", vm.messages[index]);
-    };
+
     vm.messageIcon = { "ConnectionRequest": "css/connectionRequestIcon.png", "ConnectionResponse": "css/connectionResponseIcon.png", "MusicSharing": "css/MusicSharingIcon.png" }
 
     vm.friends = [
@@ -279,6 +281,41 @@
         }
       },
     ];
+
+    vm.messageClick = function (index) {
+      console.log("clicked", vm.messages[index]);
+      //message type thingy here?
+      asyncLaunchModal(vm.messages[index]);
+    };
+
+    vm.openMessage= function(index){
+      console.log(index);
+    };
+
+    function asyncLaunchModal(message) {
+      var deferred = $q.defer();
+      $timeout(
+        function () {
+          var modalParams = [
+            { "message": message }/* ,
+            { "userGenres": vm.selectedGenres },
+            { "userProfile": vm.userProfile } */
+          ];
+          openMessageModal.open(modalParams, callback, cancel);
+          deferred.resolve();
+        }
+      );
+
+      return deferred.promise;
+    }
+
+    function callback(params){
+      console.log("callback params",params);
+    };
+
+    function cancel(params){
+      console.log("cancel params",params);
+    };
 
     init();
 
