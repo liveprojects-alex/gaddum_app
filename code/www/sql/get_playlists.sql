@@ -1,1 +1,1 @@
-SELECT * FROM playlists t1 WHERE  t1.name = 'replacement_parameter_name' or t1.id = 'replacement_parameter_id';
+SELECT * FROM playlists t1 WHERE  t1.name = ?1 or t1.id = ?2;

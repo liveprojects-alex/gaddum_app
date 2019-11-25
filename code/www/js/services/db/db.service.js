@@ -20,37 +20,38 @@
 
         var service = {
 
-            DB_NAME: "gaddum",
-            DB_LOCATION: "default",
-            SERVICE_STATES_KEY: "states",
 
-            private: {
-                db: null
-            }
         };
+
+
+        var DB_NAME = "gaddum";
+        var DB_LOCATION = "default";
+
+        var DB = null;
+
 
         //PUBLIC
         service.isDBOpen = function () {
-            return ((service.private.db));
+            return (DB);
         };
 
         //PUBLIC
         service.openDB = function (success, fail) {
-            service.private.db = window.sqlitePlugin.openDatabase(
-                { name: service.DB_NAME, location: service.DB_LOCATION }, 
-                function onOpenEnableForeignKeys(){
-                    service.private.db.executeSql("PRAGMA foreign_keys = on", [],
-                    success,
-                    fail)
-                }, 
+            DB = window.sqlitePlugin.openDatabase(
+                { name: DB_NAME, location: DB_LOCATION },
+                function onOpenEnableForeignKeys() {
+                    DB.executeSql("PRAGMA foreign_keys = on", [],
+                        success,
+                        fail)
+                },
                 fail);
         };
 
         //PUBLIC
         service.closeDB = function (success, fail) {
-            var db = service.private.db;
-            service.private.db = null;
-            db.close(
+            var local = DB;
+            DB = null;
+            local.close(
                 success,
                 fail
             );
@@ -58,14 +59,14 @@
 
         //PUBLIC
         service.deleteDB = function (success, fail) {
-            service.private.db = null;
+            DB = null;
             window.sqlitePlugin.deleteDatabase(
-                { name: service.DB_NAME, location: service.DB_LOCATION },
-                function(){
+                { name: DB_NAME, location: DB_LOCATION },
+                function () {
                     console.log("deleted DB.");
                     success();
                 },
-                function(){
+                function () {
                     console.log("could not delete DB");
                     fail();
                 }
@@ -74,8 +75,8 @@
 
         //PUBLIC
         service.dumpDB = function (success) {
-            cordova.plugins.sqlitePorter.exportDbToSql(
-                service.private.db,
+            cordova.plugins.sqlitePorter.exportDBToSql(
+                DB,
                 { successFn: success }
             );
         }
@@ -85,7 +86,7 @@
             utilitiesService.readApplicationFileAsString(
                 path,
                 function (content) {
-                    service.private.createDBFromSQL(
+                    createDBFromSQL(
                         content,
                         success,
                         fail
@@ -97,100 +98,64 @@
         };
 
         //PUBLIC
-        /**
-         * Takes an incoming sql query as sqlite.
-         * strips all comments, removes whitespace.
-         * sql may contain multiple queries, seperated by the standard delimiter, ';'.
-         * These are split, and placed into an array.
-         * If the array has only one element, the sql is treated like a query.
-         * It is given to the sqlite API, and the query results are returned in the ususal way.
-         * If the array has more than one element, the query is treated more as a multiple insert / upsert.
-         * The elements are sumbitted in a single transaction, and the results returned in the usual way of this API.
-         */
         service.query = function (
             sql,
+            params,
             success, // expect a result set 
             fail) {
-            if (service.private.db) {
+            if (DB) {
 
-                // remove comments and whitespace
-                var stripped = utilitiesService.strip(
-                    sql
+                //console.log("QUERY: " + param);
+                DB.executeSql(
+                    sql,
+                    params,
+                    function (arg) {
+                        //console.log("SUCCESS: " + JSON.stringify(arg));
+                        success(arg);
+                    },
+                    function (err) {
+                        //console.log("FAIL: " + JSON.stringify(err));
+                        fail(err);
+                    }
                 );
 
-                // split into multiple sqlStatement on the delimiter
-                var split = utilitiesService.split(stripped);
-
-                // check for multiple transactions
-                if (split.length > 1) {
-                    service.private.db.transaction(
-                        function (transaction) {
-                            for (var index = 0; index < split.length; index++) {
-
-                                var param = split[index];
-                                //console.log("T-QUERY: " + param);
-
-                                transaction.executeSql(param);
-                            }
-                        },
-                        function (err) {
-                            //console.log("FAIL: " + JSON.stringify(err));
-                            fail(err);
-                        },
-                        function (arg) {
-                            //console.log("SUCCESS: " + JSON.stringify(arg));
-                            success();
-                        }
-
-                    );
-                } else {
-                    // otherwise, it's a query.
-                    var param = split[0];
-                    //console.log("QUERY: " + param);
-                    service.private.db.executeSql(
-                        param,
-                        [],
-                        function (arg) {
-                            //console.log("SUCCESS: " + JSON.stringify(arg));
-                            success(arg);
-                        },
-                        function (err) {
-                            //console.log("FAIL: " + JSON.stringify(err));
-                            fail(err);
-                        }
-                    );
-                }
 
             } else {
                 fail("no database.");
             }
         }
 
-        service.private.createDBFromSQL = function (sql, success, fail) {
+
+
+
+        function createDBFromSQL(sql, success, fail) {
             window.sqlitePlugin.selfTest(
                 function () {
-                    service.private.db = window.sqlitePlugin.openDatabase(
-                        { name: service.DB_NAME, location: service.DB_LOCATION }
+                    DB = window.sqlitePlugin.openDatabase(
+                        { name: DB_NAME, location: DB_LOCATION }
                     );
-                    if (service.private.db) {
+                    if (DB) {
 
                         console.log("turning OFF foreign keys");
-                        service.private.db.executeSql("PRAGMA foreign_keys = off", [],
+                        DB.executeSql("PRAGMA foreign_keys = off", [],
                             function () {
                                 var stripped = utilitiesService.removeComments(sql);
 
                                 cordova.plugins.sqlitePorter.importSqlToDb(
-                                    service.private.db,
+                                    DB,
                                     stripped,
                                     {
                                         successFn: function () {
                                             console.log("turning ON foreign keys");
-                                            service.private.db.executeSql("PRAGMA foreign_keys = on", [],
+                                            DB.executeSql("PRAGMA foreign_keys = on", [],
                                                 success,
                                                 fail)
                                         },
 
-                                        errorFn: fail
+                                        errorFn: function (error) {
+                                            console.log("error importing DB: " + error.message);
+                                            fail(error);
+                                        }
 
                                     }
                                 );
@@ -206,6 +171,20 @@
             );
         };
 
+
+
+
+        service.transaction = function (arg, fnSuccess, fnFail) {
+
+            DB.sqlBatch(
+                arg,
+                fnSuccess,
+                function (error) {
+                    console.log('SQL batch ERROR: ' + error.message);
+                    fnFail(error);
+                });
+
+        }
 
         return service;
     }
