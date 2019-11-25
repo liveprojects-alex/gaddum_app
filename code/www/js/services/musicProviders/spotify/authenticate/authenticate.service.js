@@ -119,12 +119,51 @@
         }
         
 
+        function refreshAccessToken(refreshToken){
+
+            return new Promise(function (resolve, reject) {
+                
+                var uri = credentialsSrvc.refreshServiceUri;
+                var metaData_request = new XMLHttpRequest();
+
+                metaData_request.onreadystatechange = function () {
+                    if (this.readyState == 4) {
+                        if (this.status == 200) {
+                            resolve([this.status, metaData_request.responseText]);
+                        } else {
+                            reject([this.status, metaData_request.responseText]);
+                        }
+                    }
+                };
+
+                
+                metaData_request.open("POST", uri, true);
+                metaData_request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                metaData_request.send('refresh_token=' + refreshToken);
+            });
+
+        }
+
+
+        function refresh(refreshToken){
+
+            return new Promise(
+                function(resolve, reject){
+                    refreshAccessToken().then(
+                        function(result){
+                            //result will contain access_token, and expires_in, but not refresh_token
+                            var authInfo = JSON.parse(result[1]);
+                            resolve(authInfo); 
+                        },
+                        reject
+                    );
+                }
+            );
+
+
+        }
 
         function authenticate(){
-
-            
-            storeAuthInfo(null);
-
             return new Promise(
                 function(resolve, reject){
                     getPrimaryToken()
@@ -133,7 +172,7 @@
                         .then(
                             function(result){
                                 var authInfo = JSON.parse(result[1]);
-                                storeAuthInfo(authInfo);
+                           
                                 resolve(authInfo);
                             }
                         )
@@ -152,6 +191,7 @@
         }
 
         service.authenticate = authenticate;
+        service.refresh = refresh;
 
         return service;
 

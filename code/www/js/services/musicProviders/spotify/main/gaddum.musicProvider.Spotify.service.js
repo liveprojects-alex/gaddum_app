@@ -103,24 +103,41 @@
 
 //      console.log("asyncAuthSuccess");
 
+
+
+
+
       var deferred = $q.defer();
       var promises = [];
 
-      var accessToken = response.accessToken;
-      var refreshToken = response.encryptedRefreshToken;
-      var expiresAt = response.expiresAt;
+      var accessToken = response.access_token;
+      var refreshToken = response.refresh_token;
+      var expiresIn_ms = response.expires_in * 1000;
+      var currentTimeJavaEpoch_ms = Date.now();
+      
 
+      var expiresAt_ms = currentTimeJavaEpoch_ms + expiresIn_ms;
 
 
       promises.push(providerSettingsService.asyncSet(MUSIC_PROVIDER_IDENTIFIER, 'access_token', accessToken));
-      promises.push(providerSettingsService.asyncSet(MUSIC_PROVIDER_IDENTIFIER, 'expires_at', expiresAt));
-      promises.push(providerSettingsService.asyncSet(MUSIC_PROVIDER_IDENTIFIER, 'refresh_token', refreshToken));
-    
-      CACHED_ACCESS_CREDENTIALS = AccessCredentials.build(accessToken, expiresAt, refreshToken);
+      promises.push(providerSettingsService.asyncSet(MUSIC_PROVIDER_IDENTIFIER, 'expires_at', expiresAt_ms));
+
+      // A login from a refresh token will not supply another. Don't write one, unless you get one
+      if(!!refreshToken){
+        promises.push(providerSettingsService.asyncSet(MUSIC_PROVIDER_IDENTIFIER, 'refresh_token', refreshToken));
+      }
 
       $q.all(promises).then(
-        function (result) {
-          deferred.resolve(CACHED_ACCESS_CREDENTIALS);
+        function () {
+          // now rebuild the cached credentials from the combined DB values. 
+          CACHED_ACCESS_CREDENTIALS = null;
+          asyncGetAccessCredentials().then(
+            function(result){
+              deferred.resolve(result);
+            },
+            function(error){
+              deferred.reject(error);
+            });
         },
         function (error) {
           deferred.reject(error)
@@ -150,10 +167,12 @@
     }
 
 
-    function asyncRefresh() {
+    function asyncRefresh(accessCredentials) {
 //      console.log("asyncRefresh");
 
-      return authenticateSrvc.authenticate()
+      var refreshToken = accessCredentials.getRefreshToken();
+
+      return authenticateSrvc.refresh(refreshToken)
         .then(
           function (result) {
             asyncAuthSuccess(result);
@@ -171,7 +190,7 @@
         function (accessCredentials) {
           if (accessCredentials) {
             if (accessCredentials.hasExpired()) {
-              asyncRefresh().then(
+              asyncRefresh(accessCredentials).then(
                 function (refreshedCredentials) {
                   deferred.resolve(refreshedCredentials);
                 },
