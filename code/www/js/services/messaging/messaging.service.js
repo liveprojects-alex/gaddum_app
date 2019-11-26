@@ -34,6 +34,8 @@
     };
     // end of aim to remove this
 
+
+
     service.message_type = {
       "NONE":                0,
       "CONNECTION_REQUEST":  1,

@@ -67,7 +67,7 @@
                 messagingService.sendMessage(
                   {
                     message_type: messagingService.message_type.CONNECTION_REQUEST,
-                    destination_id: scannedProfile.profile.device_id,
+                    destination_id: [ scannedProfile.profile.device_id ],
                     payload: {
                       "partyOneId": String(profileId),
                       "partyTwoId": scannedProfile.profile.profile_id
