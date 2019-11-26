@@ -58,12 +58,25 @@
       //vm.modalTitle = vm.modalTitles[vm.modalPage];
       if (vm.modalpage===3) {
         cordova.plugins.barcodeScanner.scan(
-          function (result) {
-            var scannedProfile = JSON.parse( atob(result.text) );
-            console.log("We got a barcode", result);
+          function ( scan ) {
+            profileService.asyncGetUserProfile().then(function(profile){
+              var myProfile = SharedProfile.create_from_vars(profile[ profileService.SETTINGS.AVATAR_NAME ],
+                                                             profile[ profileService.SETTINGS.AVATAR_GRAPHIC ],
+                                                             profile[ profileService.SETTINGS.PROFILE_ID ],
+                                                             profile[ profileService.SETTINGS.DEVICE_ID ]);
+              var scannedProfile = SharedProfile.create_from_scan(scan.text);
+
+
+
+            });
+
+
+
+            )
             console.log("profile, hopefully: ", scannedProfile);
             userSettingsService.asyncGet(messagingService.deviceIdKey).then(function(devKey){
               profileService.asyncGetProfileId().then(function(profileId){
+                var connectionRequestPayload = connectionRequestPayload.build( , scannedProfile.profile )
                 messagingService.sendMessage(
                   {
                     message_type: messagingService.message_type.CONNECTION_REQUEST,
