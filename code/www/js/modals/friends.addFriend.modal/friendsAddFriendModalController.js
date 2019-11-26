@@ -59,18 +59,18 @@
       if (vm.modalpage===3) {
         cordova.plugins.barcodeScanner.scan(
           function (result) {
+            var scannedProfile = JSON.parse( atob(result.text) );
             console.log("We got a barcode", result);
-            console.log("profile, hopefully: ", JSON.parse( atob(result.text)));
+            console.log("profile, hopefully: ", scannedProfile);
             userSettingsService.asyncGet(messagingService.deviceIdKey).then(function(devKey){
               profileService.asyncGetProfileId().then(function(profileId){
-                console.log("PROFILEID:",profileId);
                 messagingService.sendMessage(
                   {
                     message_type: messagingService.message_type.CONNECTION_REQUEST,
-                    sender_id: devKey,
+                    destination_id: scannedProfile.profile.device_id,
                     payload: {
                       "partyOneId": String(profileId),
-                      "partyTwoId": JSON.parse( atob(result.text) ).profile.profile_id
+                      "partyTwoId": scannedProfile.profile.profile_id
                     }
                   },
                   messagingService.message_type_endpoints[messagingService.message_type.CONNECTION_REQUEST]

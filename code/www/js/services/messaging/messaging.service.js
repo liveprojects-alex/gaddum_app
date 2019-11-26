@@ -154,6 +154,8 @@
       if(p.hasOwnProperty("message_type")===true) {
         endpoint = service.message_type_endpoints[ p.message_type ];
       }
+      p.sender_id = pushService.registrationId;
+
       return( pushService.sendPayload( p, endpoint ) );
     };
 
