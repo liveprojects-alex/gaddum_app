@@ -56,12 +56,12 @@
     service.initialise = function initialise() {
       var deferred = $q.defer();
       try {
-        pushService.initialisePush( function pushInitialisedCompletely( message ) {
+        /* pushService.initialisePush( function pushInitialisedCompletely( message ) {
           console.log( "push signed in, got registration message ", message );
           userSettingsService.asyncSet(service.deviceIdKey, message.registrationId, "string" );
           pushService.setCallback(service.inboundHandler);
           deferred.resolve( message );
-        });
+        }); */
       } catch (err) {
         console.log( "Error starting up messagingService - " , err );
         throw( "error starting messagingService - " , err );

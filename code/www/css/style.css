@@ -2279,3 +2279,31 @@ div#scroller.ng-hide {
     height: 79%;
     background-image: var(--color-secondaryBackground);
   }
+
+#connectionRequestFooterBar{
+    background: transparent;
+}
+
+#connectionRequestFooterBar .button{
+    width: 50%;
+    border-radius: 0px;
+}
+
+.connectionRequestProfileCanvas{
+    position: absolute;
+}
+
+#OpenMessageModalConnectionRequestAvatarImage{
+    position: absolute;
+    top: 22%;
+    left: 5%;
+}
+#ConnectionRequestOpenText{
+    position: absolute;
+    top: 22%;
+    left: calc(6% + 80px);
+}
+#openMessageModalHeader{
+    background-color: transparent;
+    width: 100%
+}

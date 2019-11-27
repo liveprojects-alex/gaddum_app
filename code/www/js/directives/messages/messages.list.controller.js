@@ -296,13 +296,22 @@
       var deferred = $q.defer();
       $timeout(
         function () {
-          var modalParams = [
-            { "message": message }/* ,
-            { "userGenres": vm.selectedGenres },
-            { "userProfile": vm.userProfile } */
-          ];
-          openMessageModal.open(modalParams, callback, cancel);
-          deferred.resolve();
+          friendsService.searchFriendsByID(message.From).then(function (friend) {
+
+            var modalParams = [
+              { "message": message },
+              { "graphic": friend.profile.avatar_graphic }
+              //{"graphic":
+              /* ,
+              { "userGenres": vm.selectedGenres },
+              { "userProfile": vm.userProfile } */
+            ];
+            openMessageModal.open(modalParams, callback, cancel);
+            deferred.resolve();
+          },
+            function () {
+              console.log("couldn't find friend", friendID);
+            });
         }
       );
 
