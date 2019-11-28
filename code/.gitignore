@@ -1,5 +1,6 @@
 .vscode
 .DS_Store
+credentials.service.js
 node_modules/
 platforms/
 plugins/
