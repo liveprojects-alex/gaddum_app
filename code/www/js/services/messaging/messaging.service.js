@@ -161,6 +161,10 @@
       return( pushService.sendPayload( p, endpoint ) );
     };
 
+    service.asyncSendMesage = function sendMesage( p ) {
+      service.sendMessage( p );
+    };
+
     return service;
   }
 

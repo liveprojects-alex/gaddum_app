@@ -9,7 +9,9 @@
       'FriendsAddFriendModal',
       'messagingService',
       'userSettingsService',
-      'profileService'
+      'profileService',
+      'SharedProfile',
+      'ConnectionRequestPayload'
   ];
 
   function friendsAddFriendModalController(
@@ -17,7 +19,9 @@
     FriendsAddFriendModal,
     messagingService,
     userSettingsService,
-    profileService
+    profileService,
+    SharedProfile,
+    ConnectionRequestPayload,
   ) {
 
     var vm = angular.extend(this, {
@@ -49,7 +53,6 @@
                        5 : "Add a friend - Step 5" };
 
     vm.addFriendsModalNext = function(){
-      //console.log("miss_____________________________________________ modal ="+vm.modalpage);
       vm.modalpage++;
       vm.addFriendsModalUpdater();
     };
@@ -57,6 +60,7 @@
     vm.addFriendsModalUpdater=function(){
       //vm.modalTitle = vm.modalTitles[vm.modalPage];
       if (vm.modalpage===3) {
+
         cordova.plugins.barcodeScanner.scan(
           function ( scan ) {
             profileService.asyncGetUserProfile().then(function(profile){
@@ -65,31 +69,25 @@
                                                              profile[ profileService.SETTINGS.PROFILE_ID ],
                                                              profile[ profileService.SETTINGS.DEVICE_ID ]);
               var scannedProfile = SharedProfile.create_from_scan(scan.text);
-
-
-
-            });
-
-
-
-            )
-            console.log("profile, hopefully: ", scannedProfile);
-            userSettingsService.asyncGet(messagingService.deviceIdKey).then(function(devKey){
-              profileService.asyncGetProfileId().then(function(profileId){
-                var connectionRequestPayload = connectionRequestPayload.build( , scannedProfile.profile )
-                messagingService.sendMessage(
-                  {
-                    message_type: messagingService.message_type.CONNECTION_REQUEST,
-                    destination_id: [ scannedProfile.profile.device_id ],
-                    payload: {
-                      "partyOneId": String(profileId),
-                      "partyTwoId": scannedProfile.profile.profile_id
-                    }
-                  },
-                  messagingService.message_type_endpoints[messagingService.message_type.CONNECTION_REQUEST]
-                );
-                vm.addFriendsModalNext();
-              });
+              var connectionRequestPayload = ConnectionRequestProfile.build( myProfile, scannedProfile );
+              messagingService.sendMessage(
+                {
+                  message_type: messagingService.message_type.CONNECTION_REQUEST,
+                  destination_id: [ scannedProfile.fcmDeviceId ],
+                  payload: connectionRequestPayload
+                }
+              ).then(
+                function() {
+                  // sent okay
+                  alert("sent");
+                  vm.addFriendsModalNext();
+                },
+                function(error){
+                  // error
+                  console.log(error);
+                  alert("error senging");
+                }
+              );
             });
           },
           function (error) {
@@ -125,7 +123,7 @@
       });
     };
     vm.openQR = function(){
-     FriendsAddFriendModal.callbackfail(); 
+     FriendsAddFriendModal.callbackfail();
     };
 
     init();

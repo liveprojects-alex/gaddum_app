@@ -2,16 +2,16 @@
   'use strict';
 
   angular
-    .module('gaddum.modules')
-    .factory('SharedProfile')
+    .module('gaddum.models')
+    .factory('SharedProfile', SharedProfile)
   ;
 
   SharedProfile.$inject = [
-    'profileEditModalController'
+
   ];
 
   function SharedProfile(
-    profileEditModalController
+
   ) {
 
     function SharedProfile( avatarName, avatarGraphic, profileIUUID, fcmDeviceId ) {
