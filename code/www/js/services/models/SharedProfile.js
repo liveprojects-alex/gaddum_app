@@ -23,7 +23,7 @@
 
     var validations = {
       "avatarName":function validateAvatarName( name ) {
-        if(Angular.isString(name)===false) {
+        if(angular.isString(name)===false) {
           return false;
         }
         if(name.length<1) {
@@ -42,14 +42,14 @@
         return true;
       },
       "avatarGraphic":function validateAvatarGraphic(graphic) {
-        if(Angular.isArray(graphic)===false) {
+        if(angular.isArray(graphic)===false) {
           return false;
         }
         if(graphic.length!==8) {
           return false;
         }
         for(var i=0; i<8; i++) {
-          if(Angular.isNumeric(graphic[i])===false) {
+          if(angular.isNumeric(graphic[i])===false) {
             return false;
           }
           if(graphic[i]<0 || graphic[i]>255) {
@@ -59,7 +59,7 @@
         return true;
       },
       "profileIUUID": function validateProfileIUUID( IUUID ) {
-        if(Angular.isString( IUUID )===false) {
+        if(angular.isString( IUUID )===false) {
           return false;
         }
         // validation via https://stackoverflow.com/questions/7905929/how-to-test-valid-uuid-guid

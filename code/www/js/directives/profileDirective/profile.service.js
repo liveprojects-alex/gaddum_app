@@ -6,43 +6,34 @@
         .factory('profileService', profileService);
 
     profileService.$inject = [
-        'gaddumMusicProviderService',
-        '$q',
-        '$timeout',
-        'dataApiService',
-        'AvatarGraphic',
-        'SettingIdentifier',
-        'utilitiesService'
+      'gaddumMusicProviderService',
+      '$q',
+      '$timeout',
+      'dataApiService',
+      'AvatarGraphic',
+      'SettingIdentifier',
+      'utilitiesService'
     ];
 
     function profileService(
-        gaddumMusicProviderService,
-        $q,
-        $timeout,
-        dataApiService,
-        AvatarGraphic,
-        SettingIdentifier,
-        utilitiesService
+      gaddumMusicProviderService,
+      $q,
+      $timeout,
+      dataApiService,
+      AvatarGraphic,
+      SettingIdentifier,
+      utilitiesService
     ) {
 
-        var SETTINGS = {
-            AVATAR_GRAPHIC: 'avatar_graphic',
-            AVATAR_NAME: 'avatar_name',
-            PROFILE_ID: 'profile_id',
-            DEVICE_ID: 'push_device_id'
-        }
+      var SETTINGS = {
+        AVATAR_GRAPHIC: 'avatar_graphic',
+        AVATAR_NAME: 'avatar_name',
+        PROFILE_ID: 'profile_id',
+        DEVICE_ID: 'push_device_id'
+      };
 
-        var VALID_TYPES = SettingIdentifier.VALID_TYPES;
+      var VALID_TYPES = SettingIdentifier.VALID_TYPES;
 
-
-
-        function blank() {
-
-        }
-        var service = {
-            blank: blank,
-
-        };
 
         // var userProfile = {
         //     "profile": {
@@ -205,7 +196,7 @@
             return firstRunFlag;
         };
 
-        service = {
+      var service = {
             asyncGetUserProfile: asyncGetUserProfile,
             asyncGetProfileId: asyncGetProfileId,
             asyncGetDeviceId: asyncGetDeviceId,
@@ -219,8 +210,8 @@
             setModalOpenFlag: setModalOpenFlag,
             getOpenModalFlag: getOpenModalFlag,
             setFirstRunFlag: setFirstRunFlag,
-            getFirstRunFlag: getFirstRunFlag
-
+          getFirstRunFlag: getFirstRunFlag,
+          "SETTINGS": SETTINGS
         };
 
 
