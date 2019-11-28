@@ -1,6 +1,8 @@
 // NOTE: This file contains dummy values. The values for the original gaddum project are availble from the private repo:
 // https://github.com/CMDT/gaddum/blob/master/authentication/
-
+// 
+// NOTE: The repo has this copy of the file, and will not allow it to be updated with another version. See:
+// https://stackoverflow.com/questions/13630849/git-difference-between-assume-unchanged-and-skip-worktree#
 
 (function () {
     'use strict';
