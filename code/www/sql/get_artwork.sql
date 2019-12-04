@@ -1,1 +1,1 @@
-SELECT * FROM image_cache WHERE id = 'replacement_parameter_web_uri';
+SELECT * FROM image_cache WHERE id = ?1;

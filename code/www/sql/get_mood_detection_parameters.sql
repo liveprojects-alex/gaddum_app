@@ -1,1 +1,1 @@
-SELECT * FROM criteria_to_moods WHERE mood = 'replacement_parameter_mood_id'
+SELECT * FROM criteria_to_moods WHERE mood = ?1

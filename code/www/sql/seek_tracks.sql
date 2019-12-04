@@ -1,1 +1,1 @@
-SELECT * FROM tracks t1 WHERE  t1.name like '%replacement_parameter_name%' or t1.album like '%replacement_parameter_album%' or t1.artist like '%replacement_parameter_artist%' or t1.id='replacement_parameter_id';
+SELECT * FROM tracks t1 WHERE  t1.name like ?1 or t1.album like ?2 or t1.artist like ?3 or t1.id=?4;

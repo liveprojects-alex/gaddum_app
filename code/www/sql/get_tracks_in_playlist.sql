@@ -1,1 +1,1 @@
-select t1.* from tracks t1 inner join playlists_to_tracks t2 on t1.id = t2.track_id and t2.playlist_id = "replacement_parameter_playlist_id" order by t2.[order]; 
+select t1.* from tracks t1 inner join playlists_to_tracks t2 on t1.id = t2.track_id and t2.playlist_id = ?1 order by t2.[order]; 

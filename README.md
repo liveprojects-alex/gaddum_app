@@ -1,5 +1,4 @@
 # gaddum_app
-## THIS REPO IS NOW PUBLIC!
 The consumer app for the [gaddum project](https://cmdt.github.io/gaddum/). Play music for your mood.
 
 This repository contains the code for the Ionic + Cordova crossplatform mobile app.
