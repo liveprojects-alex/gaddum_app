@@ -16,6 +16,7 @@
       
         
     ) {
+        var MAX_CONNECTIONS = 50;
         var friendsDummy=[
       
             {"profile": {

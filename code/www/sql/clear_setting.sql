@@ -2,7 +2,7 @@ UPDATE settings
 SET 
     value=null
 WHERE
-    id="replacement_parameter_id";
+    id=?1;
 INSERT INTO 
     settings (
     id,
@@ -10,7 +10,7 @@ INSERT INTO
     value_type
     )
 SELECT   
-    "replacement_parameter_id",
+    ?1,
     null,
-    "replacement_parameter_value_type"
+    ?2
 WHERE (Select Changes() = 0);

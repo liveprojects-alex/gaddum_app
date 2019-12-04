@@ -1,1 +1,1 @@
-select * from tracks limit replacement_parameter_limit;
+select * from tracks limit ?1;

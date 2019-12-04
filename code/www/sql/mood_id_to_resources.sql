@@ -1,1 +1,1 @@
-SELECT * FROM supported_moods WHERE id = 'replacement_parameter_mood_id'
+SELECT * FROM supported_moods WHERE id = ?1
