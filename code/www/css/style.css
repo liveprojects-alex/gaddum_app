@@ -681,7 +681,7 @@ input::placeholder{
     margin-top: 13.5%; 
     border-radius: 100px; 
     left:31%;
-    filter: blur(2px)
+    filter: blur(2px);
 }
 
 .sleepLabel{
