@@ -31,7 +31,7 @@
     spinnerService
   ) {
     var vm = angular.extend(this, {
-      debugging:false,
+      debugging: false,
       allEmotions: null,
       selectedMoodId: null,
       cameraError: false,
@@ -40,11 +40,11 @@
       moodDisplay: {},
       detecting: true,
       helpTips: null,  //this shows/hides the speech boxes 
-      disableButton:false,
-      emotionSelected:false,
-      lookAtTheCameraText:false,
-      bang:false,
-      throbbing:false,
+      disableButton: false,
+      emotionSelected: false,
+      lookAtTheCameraText: false,
+      bang: false,
+      throbbing: false,
       cameraErrorString: 'Whoops! No Camera!',
       isFirstTime: true
     });
@@ -55,13 +55,6 @@
     var detecting = false;
     var moodIdDict = {};
 
-/*    try{
-      if(window.device.platform==="iOS"){
-        vm.cameraErrorString="We can't use the iPhone Camera (yet)";
-      }
-    } catch(e){
-      //
-    }*/
 
     function beginInitialiseCapture(fnCallback) {
 
@@ -69,25 +62,26 @@
       var canvas = document.getElementById(elementId);
       var ctx = canvas.getContext("webgl1");
 
+
       CanvasCamera.initialize(canvas);
       var options = {
         cameraFacing: 'front',
-        fps:30,
-        width: 288,
-        height: 352,
+        fps: 30,
+        width: 140,
+        height: 140,
         canvas: {
-          width: 288,
-          height: 352
+          width: 140,
+          height: 140
         },
         capture: {
-          width: 288,
-          height: 352
+          width: 140,
+          height: 140
         },
-        onAfterDraw: function(frame) {
+        onAfterDraw: function (frame) {
           if (vm.isFirstTime) {
             vm.isFirstTime = false;
             // We init Weboji here otherwise the size of the video canvas is wrong.
-            vm.initWeboji();
+            vm.initWeboji(canvas);
           }
         }
       };
@@ -98,21 +92,21 @@
 
     }
 
-    vm.initWeboji = function initWeboji(){
+    vm.initWeboji = function initWeboji(canvas) {
       //console.log("!! initWeboji called");
       emotionReaderService.initialise(
-        canvas.width, canvas.height,{
-          canvasId:  "jeefacetransferCanvas" ,
-          videoSettings: {
-            idealWidth: 320,
-            idealHeight: 250,
-            minWidth: 320,
-            maxWidth: 320,
-            minHeight: 250,
-            maxHeight: 250,
-            videoElement: canvas 
-          }
+        canvas.width, canvas.height, {
+        canvasId: "jeefacetransferCanvas",
+        videoSettings: {
+          idealWidth: 32,
+          idealHeight: 24,
+          minWidth: 32,
+          maxWidth: 24,
+          minHeight: 32,
+          maxHeight: 32,
+          videoElement: canvas
         }
+      }
       );
     };
 
@@ -180,7 +174,6 @@
             if (vm.faceDetected) {
               moodId = moodService.faceToMoodId(vm.faceDictionary);
             }
-
             updateMoodId(moodId);
 
             if (vm.isRunning == true) {
@@ -250,6 +243,7 @@
 
     function init() {
       vm.emotionSelected = false;
+      vm.faceDetected = true;
       //console.log("first: ", vm.firstTime);
       //console.log("moodidDict: ", moodIdDict);
       vm.detecting = false;
@@ -275,13 +269,16 @@
           });
         }
         else {
-
+          //getCamera();
           asyncPopulateMoodResourceDict(vm.allEmotions, moodIdDict).then(function () {
             spinnerService.spinnerOff();
             vm.disableButton = false;
             sleep();
             update();
           });
+
+
+
         }
       });
 
@@ -334,14 +331,15 @@
 
 
     }
-    function wakeUpCamera(){
+    function wakeUpCamera() {
       vm.lookAtTheCameraText = true;
+      vm.faceDetected = false;
       wake();
-      vm.emotionSelected=false;
+      vm.emotionSelected = false;
       // defaultDisplay();
-      $timeout(function(){
+      $timeout(function () {
         vm.lookAtTheCameraText = false;
-      },2500);
+      }, 2500);
     }
     function wake() {
       if (!emotionReaderService.isRunning) {
@@ -364,28 +362,28 @@
       //console.log("modal canceled");
     }
 
-    function playMood(){
+    function playMood() {
       var deferred = $q.defer();
       vm.bang = true;
-      $timeout(function(){
+      $timeout(function () {
         vm.throbbing = true;
-      },500);
+      }, 500);
       spinnerService.spinnerOn();
 
       //console.log("Getting Tracks for: " + lastMoodId);
 
       moodService.asyncNotifyNewMood(lastMoodId).then(
-        function(){
+        function () {
           spinnerService.spinnerOff();
           var explosion = document.getElementById("explosion");
           vm.throbbing = false;
           explosion.classList.add("moodExplosionLeave");
-          $timeout(function(){
-            vm.bang =false;
+          $timeout(function () {
+            vm.bang = false;
             explosion.classList.remove("moodExplosionLeave");
-          },250);
+          }, 250);
         },
-        function(errorIdentifier){
+        function (errorIdentifier) {
           //console.log("moodController: playMood: warning: " + errorIdentifier.message);
           spinnerService.spinnerOff();
 
@@ -397,7 +395,7 @@
       return deferred.promise;
 
     }
-    
+
 
 
     vm.onItemSelect = onItemSelect;

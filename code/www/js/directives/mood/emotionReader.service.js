@@ -64,7 +64,10 @@
     var result = Math.abs(arg1 - arg2);
     return result;
    }
-
+   service.get_videoFeed =  function(){
+     var vid = jft.get_video();
+     return vid;
+   }
 
    function average(arg1, arg2){
     var result = (arg1 + arg2)/2;
