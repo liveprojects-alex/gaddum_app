@@ -673,14 +673,15 @@ input::placeholder{
 }
 .moodCanvas{
     /* border: 3px solid #d3d3d3; */
-    width:150px; 
-    height:150px; 
+    width:140px; 
+    height:140px; 
     position: absolute; 
     z-index: 0; 
     opacity: 0.4; 
     margin-top: 13.5%; 
     border-radius: 100px; 
     left:31%;
+    filter: blur(2px)
 }
 
 .sleepLabel{
