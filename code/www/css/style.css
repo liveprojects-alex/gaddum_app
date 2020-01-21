@@ -599,7 +599,7 @@ ion-side-menu-content/*.menu-content.pane*/ {
     padding: 0;
 }
 .littleSelectArrow{
-    height: 90%;
+    height: 20%;
 float: right;
 top: 0;
 position: absolute;
@@ -1625,6 +1625,13 @@ div#scroller.ng-hide {
       bottom: -50px !important;
   }
 
+.selectButtonProviderInfo{
+    background-color: #11c1f3;
+    color: white;
+    bottom: -50px !important;
+}
+  
+
   .playlistImportList{
       height:77%;
       top:13%;
@@ -1688,14 +1695,16 @@ div#scroller.ng-hide {
     right: 7%;
     top: 58%;
 }
+
 .selectorModal{
-    height: 10%;
+    height: 15%;
     position: absolute;
     min-height: 0px;
     width: 46%;
     top: 15.8rem;
     left: 29%;
 }
+
 .playlistDisplayName{
     padding-left: 90px;
     padding-top: 15px;
@@ -2200,6 +2209,24 @@ div#scroller.ng-hide {
         left: 0;
     }
   }
+  #personnelList{
+    position: relative;
+    bottom: 0%;
+    width: 94%;
+    height: 20%;
+    border-top: 1px dashed black;
+  }
+  #personnelList *{
+    background-color: transparent;
+    color: black;
+    border: 0;
+    text-decoration: none;
+    font-style: italic;
+  }
+  #personnelListItem{
+    padding-top: 0;
+    padding-bottom: 0;
+  }
   #componentsList{
     position: relative;
     bottom: 0%;
@@ -2223,6 +2250,12 @@ div#scroller.ng-hide {
       position: absolute;
       top: 1%;
       right: 1%;
+  }
+  #musicProviderDiv{
+    background: transparent;
+    position: absolute;
+    top: 1%;
+    left: 1%;
   }
   .whiteBold{
     color: white !important;
