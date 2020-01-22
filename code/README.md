@@ -8,7 +8,7 @@ Find the How-To, right [here](https://github.com/AliceDigitalLabs/SupportingLive
 There is a supplemental for Mac users, [here](https://github.com/AliceDigitalLabs/Supporting_LiveProjects_2019/wiki/Ionic-and-Cordova-on-Win-10:-Mac-Supplemental)
 
 ### Building
-
+*Ensure you have Git installed on your PC - and its path will automatically be updated on the "Systems Environment Variables". If not, you may have to manually assign the **bin directory of Git** & **address location of the git-core** to be set in the variable "Path" *
 
 
 1. Install cordova
