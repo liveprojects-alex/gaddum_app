@@ -122,4 +122,15 @@ You will need to obtain a Spotify Client Id.
 
 
 
+## Android build with android-barcode-scanner
+
+Make sure phonegap-plugin-bardocdescanner is version 6.0.1
+
+~~(See here to solve first issue, cause by two references to the `uses-feature` tag)[https://github.com/phonegap/phonegap-plugin-barcodescanner/issues/418#issuecomment-361588203]~~
+
+~~(Here is the solution to the `Execution failed for task ':transformClassesWithJarMergingForDebug' issue)[https://github.com/phonegap/phonegap-plugin-push/issues/2792#issuecomment-512662354] *(Use cordova-push-plugin@2.2.1)*~~
+
+(This link provides a helpful solution that worked for me)[https://stackoverflow.com/a/51489200]
+`cordova plugin add cordova-android-support-gradle-release --variable ANDROID_SUPPORT_VERSION=27.+`
+Remember to `cordova platform remove android`, `cordova platform add android@6.3.0`, then `cp google-services.json ./platforms/android/`
 

@@ -2,7 +2,7 @@
 (function () {
     'use strict';
 
-    console.log("HERE: postcodeservice");
+    // console.log("HERE: postcodeservice");
 
     angular
         .module('gaddum.postcode', [

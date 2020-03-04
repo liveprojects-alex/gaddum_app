@@ -100,14 +100,14 @@ ion-slide:nth-child(2n) {
 .slidingTabs .tab-indicator-wrapper {
     width: 100%;
     height: 2px;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0);
     -webkit-transform: translateY(-2px);
     position: absolute;
 }
 
 .slidingTabs .tab-indicator-wrapper .tab-indicator {
     height: 100%;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0);
     width: 70px;
     position: relative;
 }
@@ -135,6 +135,7 @@ div.box {
   height:100%;
 
   display:block;
+  /* background: url(./MoodBackground.svg); */
   background-image: var(--color-primaryBackground);
 }
 div#main_wrapper, div.slider {
@@ -424,6 +425,7 @@ ion-side-menu-content/*.menu-content.pane*/ {
     font-family: fantasy;
 }
 .moodElementsDiv{
+    /* background: url(./MoodBackground.svg) !important; */
     height:90%;
 }
 .moodSelect{
@@ -457,6 +459,31 @@ ion-side-menu-content/*.menu-content.pane*/ {
           white-space: normal;
           line-height: normal;
 }
+.moodEmojiTextStartUp{
+    font-size: 20px;
+          top: 25px;
+          position: absolute;
+          font-weight: 600;
+          white-space: normal;
+          line-height: 20px;
+          left: 0;
+}
+.moodEmojiTextPressMe{
+    font-size: 24px;
+          top: -55px;
+          position: absolute;
+          font-weight: 600;
+          left: 9%;
+}
+.moodEmojiTextFindMood{
+    font-size: 24px;
+          top: 64px;
+          position: absolute;
+          font-weight: 600;
+          left: -40%;
+          width: 250px;
+}
+
 .textShadow{
     color:white;
     text-shadow: -1px -1px 0 black, 1px -1px 0 black, 1px 1px 0 black, -1px 1px 0 black;
@@ -640,6 +667,21 @@ input::placeholder{
     border-radius: 5rem;
     background-color: var(--color-moodBubble);
     cursor: pointer;
+}
+.moodEmojiHide{
+    background-color: rgba(0, 0, 0, 0) !important;
+}
+.moodCanvas{
+    /* border: 3px solid #d3d3d3; */
+    width:140px; 
+    height:140px; 
+    position: absolute; 
+    z-index: 0; 
+    opacity: 0.4; 
+    margin-top: 13.5%; 
+    border-radius: 100px; 
+    left:31%;
+    filter: blur(2px);
 }
 
 .sleepLabel{
@@ -963,7 +1005,7 @@ input::placeholder{
 .removeTextInButton{
     position: absolute;
     bottom: -5%;
-    left: 25%;
+    left: 7.5;
     color:black;
 }
 .playTextInButtonPlaylistView{
@@ -1094,7 +1136,7 @@ input::placeholder{
 
   .qrdiv{
     position: absolute;
-    top: 22%;  
+    top: 100px;  
     text-align: center;
     width: 100%;
     height: 70%;
@@ -1927,11 +1969,12 @@ div#scroller.ng-hide {
 
 .viewPlaylistEditList{
     position: absolute;
-    top: 10%;
-    height: 75%;
+    top: 4%;
+    height: 83%;
 }
 .playlistTitle{
     text-align: center;
+    font-size: 14px;
 }
 #addToPlaylistIcon{
     filter: invert(1);
@@ -1939,7 +1982,7 @@ div#scroller.ng-hide {
     left: 0%;
     /* top: 40%; */
     width: 42%;
-    margin-top: 4px;
+    margin-top: -2px;
 }
 .playlistViewButton{
     width: 33%;
@@ -2022,6 +2065,10 @@ div#scroller.ng-hide {
     top: 0;
 }
 .headerSpinner{
+    width: 50px;
+    height: 50px;
+}
+.newMessageIcon{
     width: 50px;
     height: 50px;
 }
@@ -2278,3 +2325,60 @@ div#scroller.ng-hide {
   #aboutTextDiv{
       width: 90%;
   }
+
+  #messagesListscroll{
+    position: absolute;
+    top: 0rem;
+    height: 27.5rem;
+    /* height: 90%;
+    width:90%;
+    left:5%;
+    border-radius: 3em; */
+    
+}
+
+.messagesListSenderName{
+    position: absolute;
+    /* left:55% */
+    left:12rem;
+    top: 34%;
+    color: black;
+}
+
+.openMessageModal{
+    padding:4px;
+    width: 85%;
+    position: absolute;
+    left: 7.5%;
+    top: 6%;
+    height: 79%;
+    background-image: var(--color-secondaryBackground);
+  }
+
+#connectionRequestFooterBar{
+    background: transparent;
+}
+
+#connectionRequestFooterBar .button{
+    width: 50%;
+    border-radius: 0px;
+}
+
+.connectionRequestProfileCanvas{
+    position: absolute;
+}
+
+#OpenMessageModalConnectionRequestAvatarImage{
+    position: absolute;
+    top: 22%;
+    left: 5%;
+}
+#ConnectionRequestOpenText{
+    position: absolute;
+    top: 22%;
+    left: calc(6% + 80px);
+}
+#openMessageModalHeader{
+    background-color: transparent;
+    width: 100%
+}

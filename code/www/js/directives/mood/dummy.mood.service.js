@@ -31,7 +31,7 @@
       
       var numRecognisedMoods = emotions.length;
       var index = Math.floor(Math.random() * numRecognisedMoods)
-      console.log(index);
+      // console.log(index);
       return emotions[index];
     }
     

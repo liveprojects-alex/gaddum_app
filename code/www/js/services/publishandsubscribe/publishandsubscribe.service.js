@@ -1,6 +1,8 @@
 (function () {
     'use strict';
 
+    // console.log("HERE: pubsubService");
+
     angular
         .module('gaddum.publishandsubscribe')
         .factory('pubsubService', pubsubService);

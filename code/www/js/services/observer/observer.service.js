@@ -1,6 +1,8 @@
 (function () {
     'use strict';
 
+    // console.log("HERE: observerService");
+
     angular
         .module('gaddum.observer')
         .factory('observerService', observerService);

@@ -8,36 +8,86 @@
         .factory('friendsService', friendsService);
 
     friendsService.$inject = [
-        
+        '$q',
+        'connectionService'
          
     ];
 
     function friendsService(
-      
+      $q,
+      connectionService
         
     ) {
+
+        function beginFriend(sharedProfile){
+          var deferred = $q.defer();
+          connectionService.requestConnection(sharedProfile).then(function(){
+            deferred.resolve(sharedProfile);
+          },
+          function(){
+            deferred.reject("connection request failed");
+          });
+          return deferred.promise;
+
+        }
+
         var MAX_CONNECTIONS = 50;
+
+        function searchFriendsByID(searchID){
+          //replace to get all friends from database then search them by id
+          var deferred = $q.defer();
+          var foundProfile=null;
+          for(var i = 0 ; i<friendsDummy.length; i++){
+            if(friendsDummy[i].profile.profile_id==searchID){
+              foundProfile=friendsDummy[i];
+            }
+          }
+          if (!foundProfile) {
+            deferred.reject("couldn't find profile");
+          }else{
+            deferred.resolve(foundProfile);
+            
+          }
+          return deferred.promise;
+        }
+
+
+
         var friendsDummy=[
       
             {"profile": {
               "profile_id": "11111111-5500-4cf5-8d42-228864f4807a",
               "avatar_name": "Pineapple Fruit-Butter",
-              "avatar_graphic": [
+              "avatar_graphic":
+                {"values":[
+                  0,
+                  0,
+                  0,
+                  24,/* 60 */
+                  24,
+                  0,
+                  0,
+                  0
+                ],
+                "colour":"#FF00FF"},
+              /* "avatar_graphic": [
                 0,
                 0,
                 0,
-                24,/* 60 */
+                24,
                 24,
                 0,
                 0,
                 0
               ],
+              "avatar_graphic_colour":"#FF00FF", */
               device_id: "dJUr6sA28ZY:A1A91bH-chjJ8lcq61ofrjoHjak3q6nCFALPGytdEsLzh2DacCx7ihhZHxd6pPSXYMhtx4MlcQekn1rzjB7c809aNzivPFu5jhA-SR6FWbvzfBsO8ySo6um8DVA9dgOgokzz0QU5vbEf"
             }},
             {"profile": {
               "profile_id": "22222222-5500-4cf5-8d42-228864f4807a",
               "avatar_name": "Strawberry Jam",
-              "avatar_graphic": [
+              "avatar_graphic":
+                {"values":[
                 0,
                 96,
                 96,
@@ -56,12 +106,15 @@
                 126,
                 0 */
               ],
+              "colour":"#FF00FF"},
+              /* "avatar_graphic_colour":"#FF00FF", */
               device_id: "dJUr6sA28ZY:A2A91bH-chjJ8lcq61ofrjoHjak3q6nCFALPGytdEsLzh2DacCx7ihhZHxd6pPSXYMhtx4MlcQekn1rzjB7c809aNzivPFu5jhA-SR6FWbvzfBsO8ySo6um8DVA9dgOgokzz0QU5vbEf"
             }},
             {"profile": {
               "profile_id": "33333333-5500-4cf5-8d42-228864f4807a",
               "avatar_name": "Raspberry Puree",
-              "avatar_graphic": [
+              "avatar_graphic":
+                {"values":[
                 0,
                 96,
                 96,
@@ -71,12 +124,15 @@
                 6,
                 0
               ],
+              "colour":"#FF00FF"},
+              /* "avatar_graphic_colour":"#FF00FF", */
               device_id: "dJUr6sA28ZY:A3A91bH-chjJ8lcq61ofrjoHjak3q6nCFALPGytdEsLzh2DacCx7ihhZHxd6pPSXYMhtx4MlcQekn1rzjB7c809aNzivPFu5jhA-SR6FWbvzfBsO8ySo6um8DVA9dgOgokzz0QU5vbEf"
             }},
             {"profile": {
               "profile_id": "44444444-5500-4cf5-8d42-228864f4807a",
               "avatar_name": "Apple Curd",
-              "avatar_graphic": [
+              "avatar_graphic":
+                {"values":[
                 0,
                 102,
                 102,
@@ -86,12 +142,15 @@
                 102,
                 0
               ],
+              "colour":"#FFFF00"},
+              /* "avatar_graphic_colour":"#FF00FF", */
               device_id: "dJUr6sA28ZY:A4A91bH-chjJ8lcq61ofrjoHjak3q6nCFALPGytdEsLzh2DacCx7ihhZHxd6pPSXYMhtx4MlcQekn1rzjB7c809aNzivPFu5jhA-SR6FWbvzfBsO8ySo6um8DVA9dgOgokzz0QU5vbEf"
             }},
             {"profile": {
               "profile_id": "55555555-5500-4cf5-8d42-228864f4807a",
               "avatar_name": "Banana Fruit-Spread",
-              "avatar_graphic": [
+              "avatar_graphic":
+                {"values":[
                 0,
                 102,
                 102,
@@ -101,13 +160,17 @@
                 102,
                 0
               ],
+              "colour":"#FF00FF"},
+              /* "avatar_graphic_colour":"#FF00FF", */
               device_id: "dJUr6sA28ZY:A5A91bH-chjJ8lcq61ofrjoHjak3q6nCFALPGytdEsLzh2DacCx7ihhZHxd6pPSXYMhtx4MlcQekn1rzjB7c809aNzivPFu5jhA-SR6FWbvzfBsO8ySo6um8DVA9dgOgokzz0QU5vbEf"
             }},
           ];
         var service = {
                deleteFriends,
                getAllFriends,
-               searchFriends
+               searchFriends,
+               searchFriendsByID,
+               beginFriend
         };
         function searchFriends(input){
           var tempFriends = [];
@@ -116,8 +179,8 @@
             return friendsDummy;
           } else {
             for (var i = 0; i < friendsDummy.length; i++) {
-              console.log(friendsDummy[i].profile.avatar_name)
-              console.log(input + " included in " + friendsDummy[i].profile.avatar_name + " = " + friendsDummy[i].profile.avatar_name.includes(input))
+              // console.log(friendsDummy[i].profile.avatar_name)
+              // console.log(input + " included in " + friendsDummy[i].profile.avatar_name + " = " + friendsDummy[i].profile.avatar_name.includes(input))
               if (friendsDummy[i].profile.avatar_name.toLowerCase().includes(input.toLowerCase())) {
                 tempFriends[j] = friendsDummy[i];
                 j++;
@@ -167,7 +230,7 @@
             
             
             
-            console.log(sharedProfile);
+            // console.log(sharedProfile);
             if ((sharedProfile.profile.profile_id.length)>3) {
                 //req sent
                 //return req sent
@@ -245,10 +308,10 @@
             //delete friend
             var boolreturn=false;
             if (ProfileUUID>0) {
-                console.log("Friend "+ProfileUUID+" deleted");
+                // console.log("Friend "+ProfileUUID+" deleted");
                 boolreturn=true;
             } else {
-                console.log("Friend not deleted(invalid UUID");
+                // console.log("Friend not deleted(invalid UUID");
                 boolreturn= false;
             }
             return boolreturn;

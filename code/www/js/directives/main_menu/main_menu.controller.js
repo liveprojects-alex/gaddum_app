@@ -42,10 +42,10 @@
       
     }
     function fnCallbackOk(){
-      console.log("modal ok");
+      // console.log("modal ok");
     }
     function fnCallbackCancel(){
-      console.log("modal cancel");
+      // console.log("modal cancel");
     }
 
     

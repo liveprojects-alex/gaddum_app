@@ -6,43 +6,34 @@
         .factory('profileService', profileService);
 
     profileService.$inject = [
-        'gaddumMusicProviderService',
-        '$q',
-        '$timeout',
-        'dataApiService',
-        'AvatarGraphic',
-        'SettingIdentifier',
-        'utilitiesService'
+      'gaddumMusicProviderService',
+      '$q',
+      '$timeout',
+      'dataApiService',
+      'AvatarGraphic',
+      'SettingIdentifier',
+      'utilitiesService'
     ];
 
     function profileService(
-        gaddumMusicProviderService,
-        $q,
-        $timeout,
-        dataApiService,
-        AvatarGraphic,
-        SettingIdentifier,
-        utilitiesService
+      gaddumMusicProviderService,
+      $q,
+      $timeout,
+      dataApiService,
+      AvatarGraphic,
+      SettingIdentifier,
+      utilitiesService
     ) {
 
-        var SETTINGS = {
-            AVATAR_GRAPHIC: 'avatar_graphic',
-            AVATAR_NAME: 'avatar_name',
-            PROFILE_ID: 'profile_id',
-            DEVICE_ID: 'push_device_id'
-        }
+      var SETTINGS = {
+        AVATAR_GRAPHIC: 'avatar_graphic',
+        AVATAR_NAME: 'avatar_name',
+        PROFILE_ID: 'profile_id',
+        DEVICE_ID: 'push_device_id'
+      };
 
-        var VALID_TYPES = SettingIdentifier.VALID_TYPES;
+      var VALID_TYPES = SettingIdentifier.VALID_TYPES;
 
-
-
-        function blank() {
-
-        }
-        var service = {
-            blank: blank,
-
-        };
 
         // var userProfile = {
         //     "profile": {
@@ -114,12 +105,12 @@
             return deferred.promise;
         };
 
-        // TODO - get from connection service
         function asyncGetDeviceId(){
             var deferred = $q.defer();
 
             $timeout(
-                function(){
+              function(){
+                //@TODO this should return an actual device id?!?
                     deferred.resolve("dJUr6sA28ZY:A9A91bH-chjJ8lcq61ofrjoHjak3q6nCFALPGytdEsLzh2DacCx7ihhZHxd6pPSXYMhtx4MlcQekn1rzjB7c809aNzivPFu5jhA-SR6FWbvzfBsO8ySo6um8DVA9dgOgokzz0QU5vbEf");
                 }
             );
@@ -130,7 +121,7 @@
 
 
         function asyncGetProfileId() {
-            var deferred = $q.defer()
+          var deferred = $q.defer();
 
             dataApiService.asyncGetSetting(SETTINGS.PROFILE_ID).then(
                 function onSuccess(profileId) {
@@ -192,7 +183,7 @@
         function setModalOpenFlag(value){
             openModalFlag=value;
         };
-        
+
         function getOpenModalFlag(){
             return openModalFlag;
         };
@@ -205,7 +196,7 @@
             return firstRunFlag;
         };
 
-        service = {
+      var service = {
             asyncGetUserProfile: asyncGetUserProfile,
             asyncGetProfileId: asyncGetProfileId,
             asyncGetDeviceId: asyncGetDeviceId,
@@ -219,8 +210,8 @@
             setModalOpenFlag: setModalOpenFlag,
             getOpenModalFlag: getOpenModalFlag,
             setFirstRunFlag: setFirstRunFlag,
-            getFirstRunFlag: getFirstRunFlag
-
+          getFirstRunFlag: getFirstRunFlag,
+          "SETTINGS": SETTINGS
         };
 
 

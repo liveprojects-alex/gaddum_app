@@ -465,7 +465,7 @@
             dataApiService.asyncGetUnobservedTracks(SETTINGS.UNOBSERVED_TRACKS_LIMIT.value).then(
                 function (genericTracks) {
                     var result = MoodedPlaylist.build(moodId, genericTracks);
-                    console.log("asyncFindPlaylistFromUnobservedTracks:")
+                    // console.log("asyncFindPlaylistFromUnobservedTracks:")
                     MoodedPlaylist.dumpItems([result]);
                     deferred.resolve(result);
                 },
@@ -484,7 +484,7 @@
                     asyncLookupTrackIds(trackIds).then(
                         function (genericTracks) {
                             var result = MoodedPlaylist.build(moodId, genericTracks);
-                            console.log("asyncFindPlaylistByObservation:")
+                            // console.log("asyncFindPlaylistByObservation:")
                             MoodedPlaylist.dumpItems([result]);
                             deferred.resolve(result);
                         },
@@ -675,7 +675,7 @@
             var mood = null;
             var genericTrack = null;
             try {
-                mood = statementCriteria.getMood();
+                mood = statementCriteria.getMoodId();
                 genericTrack = statementCriteria.getGenericTrack();
             } catch (e) {
                 throw ("asyncApplyStatement: unexpected parameters: needs a MoodIdentifier and a GenericTrack.");

@@ -42,7 +42,7 @@
       mc.playlistsPlural = 0;
 
       mc.params = addToPlaylistWizard.getParams();
-      console.log(mc.params);
+      // console.log(mc.params);
       playlistService.asyncSeekPlaylists("").then(function (result) {
         mc.playlistArray = result;
         mc.playlistArray.forEach(function (element) {
@@ -93,7 +93,7 @@
           trackGen.forEach(function (track) {
             result.push(track);
           });
-          console.log("playlist:", playlist, "tracks:", result);
+          // console.log("playlist:", playlist, "tracks:", result);
           playlistService.asyncSetPlaylistTracks(playlist, result).then(function (result) {
             addToPlaylistWizard.close();
           });

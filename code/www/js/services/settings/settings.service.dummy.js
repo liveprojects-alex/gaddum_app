@@ -58,10 +58,8 @@
           deferred.resolve(delivery);
         }
       );
-
-
       return deferred.promise;
-    }
+    };
 
 
 

@@ -43,7 +43,7 @@
 
     function asyncSetPlaylistTracks(playlistIdentifier, arrayGenericTracks) {
       isBusy = true;
-      console.log("tracks are ", arrayGenericTracks);
+      // console.log("tracks are ", arrayGenericTracks);
       return dataApiService.asyncSetGenericTracksInPlaylist(playlistIdentifier, arrayGenericTracks).then(function (result) {
         isBusy = false;
       });
@@ -72,7 +72,7 @@
     function asyncPlay(moodedPlaylists) {
 
       var deferred = $q.defer();
-      console.log("async play MoodedPlaylist:", moodedPlaylists);
+      // console.log("async play MoodedPlaylist:", moodedPlaylists);
       $timeout(
 
         function () {

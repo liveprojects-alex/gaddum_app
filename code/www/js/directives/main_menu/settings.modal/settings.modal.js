@@ -61,7 +61,7 @@
         }
         function addToDict(setting,index){
             dict[index] = setting;
-            console.log(dict);
+            // console.log(dict);
         }
         function close() {
             if(modalSave){

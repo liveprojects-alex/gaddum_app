@@ -78,15 +78,15 @@
         function(settings){
           asyncUpdateSettings(settings).then(
             function(){
-              console.log("settings: updated");
+              // console.log("settings: updated");
             },
             function(error){
-              console.log("settings: error: " + error.message);
+              // console.log("settings: error: " + error.message);
             }
           );
         },
         function(error){
-          console.log("error colecting settings")
+          // console.log("error colecting settings")
         }
       );
       

@@ -349,13 +349,13 @@
 
 
     function dumpTracks(items) {
-      console.log("---- tracks ----");
+      // console.log("---- tracks ----");
       items.forEach(
         function (item) {
-          console.log(JSON.stringify(item, null, 2));
+          // console.log(JSON.stringify(item, null, 2));
         }
       );
-      console.log("----     end    ----");
+      // console.log("----     end    ----");
     }
 
     function asyncSuggestPlaylists(moodedSearchCriteria) {
@@ -378,7 +378,7 @@
 
           $q.all(promises).then(
             function (playlists) {
-              console.log("asyncSuggestPlaylists:");
+              // console.log("asyncSuggestPlaylists:");
               MoodedPlaylist.dumpItems(playlists);
               deferred.resolve(playlists);
             },

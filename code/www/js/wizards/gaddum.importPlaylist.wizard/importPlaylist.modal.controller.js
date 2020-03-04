@@ -45,11 +45,11 @@
     function init() {
       mc.hideSpinner = false;
       mc.params =importPlaylistWizard.getParams();
-      console.log(mc.params);
+      // console.log(mc.params);
       gaddumMusicProviderService.asyncGetProfilePlaylist(offset,limit).then(function(result){
         var count = 0;
         result.forEach(function(element) {
-          console.log(element);
+          // console.log(element);
           mc.playlistArray[count] = {"name":element.getName()};
           mc.playlistArray[count].display_name = element.getOwnerName();
           mc.playlistArray[count].id = element.getProviderPlaylistRef();
@@ -69,7 +69,7 @@
     }
     init();
     function playlistSelected(index){
-      console.log("here",mc.playlistArray[index].value);
+      // console.log("here",mc.playlistArray[index].value);
       mc.playlistArray[index].value = !mc.playlistArray[index].value;
       mc.itemSelected = false;
       mc.playlistArray.forEach(function(element){
@@ -80,7 +80,7 @@
       });
     }
     function more(){
-      console.log("more");
+      // console.log("more");
       mc.hideSpinner = false;
       gaddumMusicProviderService.asyncGetProfilePlaylist(offset,limit).then(function(result){
         if(result.length === 0){
@@ -88,13 +88,13 @@
         }
         var count = offset;
         result.forEach(function(element) {
-          console.log(count);
+          // console.log(count);
           mc.playlistArray[count] = {"name":element.getName()};
           mc.playlistArray[count].display_name = element.getOwnerName();
           mc.playlistArray[count].id = element.getProviderPlaylistRef();
           mc.playlistArray[count].artwork = element.getProviderArtworkRef();
           mc.playlistArray[count].value = false;
-          console.log("playlistArry",mc.playlistArray);
+          // console.log("playlistArry",mc.playlistArray);
           count = count+1;
         });
         offset = offset+10;

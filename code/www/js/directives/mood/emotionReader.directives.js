@@ -71,7 +71,7 @@
       },
       templateUrl: 'js/directives/mood/emotionReader.partials/emotionReaderResultMenu.html',
       link: function(scope, element, attrs) {
-        console.log("inside");
+        // console.log("inside");
         scope.emotions = moodService.EMOTIONS;
         if(moodService.emotionChosen===true) {
           scope.emotionChosen = moodSrvc.emotionChosen;

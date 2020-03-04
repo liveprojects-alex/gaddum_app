@@ -167,6 +167,14 @@
   <script src="js/directives/mood/moodSelect.modal/moodSelect.modal.js"></script>
   <script src="js/directives/mood/moodSelect.modal/moodSelect.modal.controller.js"></script>
 
+  <script src="js/directives/messages/messages.directive.js"></script>
+  <script src="js/directives/messages/messages.service.js"></script>
+  <script src="js/directives/messages/messages.list.controller.js"></script>
+  <script src="js/directives/messages/modals/open_message_modal.js"></script>
+  <script src="js/directives/messages/modals/open_message_modal_controller.js"></script>
+  <!-- <script src="js/directives/messages/messages.module.js"></script> -->
+  
+
 
   <script src="js/directives/player/gaddum.player/gaddum.player.module.js"></script>
   <script src="js/directives/player/gaddum.player/gaddum.player.controller.js"></script>
@@ -255,12 +263,20 @@
   <script src="js/modals/playlist.create.modal/PlaylistCreateModal.js"></script>
   <script src="js/modals/playlist.create.modal/PlaylistCreateModalController.js"></script>
 <!-- PLAYLIST MODALS END -->
+<!--  FRIENDS MODALS -->
+  <script src="js/modals/friends.addFriend.modal/FriendsAddFriendModal.js"></script>
+  <script src="js/modals/friends.addFriend.modal/friendsAddFriendModalController.js"></script>
+<!--  FRIENDS MODALS END -->
 <!-- SPINNER DIRECTIVE -->
   <script src="js/directives/headerSpinner/spinner.directive.js"></script>
   <script src="js/directives/headerSpinner/spinner.controller.js"></script>
   <script src="js/services/spinner/spinner.service.js"></script>
 <!-- SPINNER DIRECTIVE END -->
-
+<!-- NEW MESSAGE ICON DIRECTIVE -->
+  <script src="js/directives/newMessageIcon/newMessageIcon.directive.js"></script>
+  <script src="js/directives/newMessageIcon/newMessageIcon.controller.js"></script>
+  <script src="js/services/newMessageIcon/newMessageIcon.service.js"></script>
+<!-- NEW MESSAGE ICON DIRECTIVE END -->
 
   <!-- publish and subscribe -->
   <script src="js/services/publishandsubscribe/publishandsubscribe.module.js"></script>
@@ -278,6 +294,8 @@
   <script src="js/services/settings/settings.service.js"></script>
   <script src="js/services/settings/provider.settings.service.js"></script>
 
+  <script src="js/services/messaging/push.service.js"></script>
+  <script src="js/services/messaging/messaging.service.js"></script>
 
   <!-- internet connection -->
   <script src="js/services/connection/connection.module.js"></script>
@@ -318,6 +336,10 @@
   <script src="js/services/models/TrackProgress.js"></script>
   <script src="js/services/models/TrackSearchCriteria.js"></script>
   <script src="js/services/models/TrackReference.js"></script>
+
+  <script src="js/services/models/SharedProfile.js"></script>
+  <script src="js/services/models/ConnectionRequestPayload.js"></script>
+  <!--  <script src="js/services/models/.js"></script> -->
 
   <script src="js/services/models/CachedImage.js"></script>
 
@@ -361,6 +383,8 @@
 
 <body ng-app="gaddum" ng-animate-children="true"></body>
 <!-- <body ng-app="gaddum" ng-animate-children="true" scroll="false" ng-cloak> -->
+    <!-- <canvas id="jeefacetransferCanvas" style="width:320px;height:288px; "></canvas> -->
+    
     <permissions_directive></permissions_directive>
 
   <div  class="bar bar-header" align-title="center">

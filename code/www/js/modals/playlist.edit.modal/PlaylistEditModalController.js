@@ -28,7 +28,7 @@
       vm.params = playlistEditModal.getParams();
       vm.showDelete=true;
       vm.showReorder=true;
-      console.log("params22!",vm.params);
+      // console.log("params22!",vm.params);
     };
     init();
     
@@ -41,11 +41,11 @@
     }
 
     vm.reorderlog=function(song, fromIndex,toIndex){
-      console.log(song, fromIndex,toIndex);
+      // console.log(song, fromIndex,toIndex);
       vm.params.tracks.splice(fromIndex, 1);
       vm.params.tracks.splice(toIndex, 0, song);
       playlistEditModal.trackData(vm.params.tracks);
-      console.log(vm.params.tracks);
+      // console.log(vm.params.tracks);
     };
     var name = null;
     vm.textChange = function(){

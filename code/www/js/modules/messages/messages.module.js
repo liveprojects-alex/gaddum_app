@@ -23,8 +23,8 @@
           views: {
             'messages@gaddum': {
               templateUrl: 'js/modules/messages/messages.list.html',
-              controller: "messagesListController",
-              controllerAs: "mlc"
+              controller: "messagesListDirectiveController",
+              controllerAs: "vm"
             }
           }
         });

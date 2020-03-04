@@ -49,7 +49,7 @@
     function asyncLogin() {
       ac.busy = true;
       spinnerService.spinnerOn();
-      console.log("setting music provider.");
+      // console.log("setting music provider.");
       gaddumMusicProviderService.asyncSetMusicProvider(ac.selectedNamedIdentifier)
         .then(
           function () {

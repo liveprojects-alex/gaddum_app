@@ -243,7 +243,7 @@
       } else {
         permissions[ service.permissions[ permissionType ][device.platform].request](
           function(status){
-            console.log(permissionType + " permission: "+ status);
+            // console.log(permissionType + " permission: "+ status);
             if(status.includes(permissionCodes[device.platform].GRANTED)){ //includes due to iOS location status = "authorized_when_in_use"
               service.permissions[permissionType].hasPermission = true;
               service.permissions[permissionType].deniedAlways = false;

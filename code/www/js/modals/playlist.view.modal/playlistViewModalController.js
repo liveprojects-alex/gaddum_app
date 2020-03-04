@@ -102,7 +102,7 @@
       mooded = MoodedPlaylist.build(emotion,arrayTrack);
       moodedArray.push(mooded);
       playlistService.asyncPlay(moodedArray);
-      console.log(moodedArray);
+      // console.log(moodedArray);
     }
 
     function playPlaylist(){
@@ -120,16 +120,16 @@
       mooded = MoodedPlaylist.build(emotion,vm.params.tracks);
       moodedArray.push(mooded);
       playlistService.asyncPlay(moodedArray);
-      console.log(moodedArray);
+      // console.log(moodedArray);
     }
 
     function fnCallbackHowAreYouCancel(){
-      console.log("modal canceled");
+      // console.log("modal canceled");
     }
 
     function addToPlaylist(track){
       $ionicListDelegate.closeOptionButtons();
-      console.log("track", track);
+      // console.log("track", track);
       var trackToAdd = [];
       trackToAdd.push(track);
       addToPlaylistWizard.open(trackToAdd,fnCallbackAddToPlaylistOk,fnCallbackAddToPlaylistCancel);

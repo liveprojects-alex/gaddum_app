@@ -16,7 +16,7 @@
     $q
   ) {
 
-    console.log("here");  
+    // console.log("here");  
   
 
       var dict = {

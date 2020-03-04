@@ -100,7 +100,6 @@
     function search() {
       if (bm.searchText.length != 0) {
         gaddumShortcutBarService.disableContext();
-        bm.moreTrackCheck = false;
         $('#searchBox').blur();
         bm.searchingType = [];
         bm.page = 0;
@@ -127,6 +126,7 @@
           bm.lastType = bm.searchingType;
           bm.sList = true;
           bm.searching = false;
+          bm.moreTrackCheck = false;
           spinnerService.spinnerOff();
           result.forEach(function (element) {
             bm.searchBrowse.push(element);

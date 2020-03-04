@@ -3,6 +3,7 @@
 
 	angular
 		.module('gaddum.models', [
-		])
+      'utilitiesjs'
+		]);
 
 })();

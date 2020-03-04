@@ -1,5 +1,8 @@
 (function () {
     'use strict';
+
+    // console.log("HERE: locationService");
+
     angular
         .module('gaddum.location')
         .factory('locationService', locationService);
