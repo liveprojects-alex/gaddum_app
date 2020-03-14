@@ -71,7 +71,7 @@
         height: 140,
         canvas: {
           width: 140,
-          height: 140
+          height: 140,
         },
         capture: {
           width: 140,
@@ -394,9 +394,6 @@
       return deferred.promise;
 
     }
-
-
-
     vm.onItemSelect = onItemSelect;
     vm.selectModal = selectModal;
     vm.wakeUpCamera = wakeUpCamera;

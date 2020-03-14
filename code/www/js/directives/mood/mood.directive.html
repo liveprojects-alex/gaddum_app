@@ -5,11 +5,12 @@
   <div style="text-align: center" class="moodArrow">
     <span><img src="css/Down_arrow.svg" style=" height: 4rem;transform: scaleX(2);" /></span>
   </div>
+ 
   <div style="text-align: center" class="moodArrow2">
     <span><img src="css/Down_arrow.svg" style=" height: 4rem;transform: scaleX(2);" /></span>
   </div>
 
-  <div style="text-align: center" class="picture">
+  <div style="text-align: center" class="genericChar">
     <span><img src="css/CharGeneric.png" style="height:140px ; width:140px;"/></span>
  </div>
 
@@ -60,10 +61,12 @@
       </p>
     </span>
   </div>
+
   <div style="width:100%;">
     <img id="explosion" ng-show="vm.bang" ng-class="((vm.throbbing)? 'throbIn' : 'throbOut' )" class="moodExplosion"
       src="css/moodExplosion.svg" />
   </div>
+
   <button ng-disabled="vm.disableButton" ng-click="vm.selectModal()" class="moodSelect "><span
       class="selectSpan">{{vm.moodDisplay.name}}
     </span><img src="css/arrow-down-b.svg" class="littleSelectArrow" /></button>
