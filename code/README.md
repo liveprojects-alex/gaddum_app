@@ -11,9 +11,9 @@ There is a supplemental for Mac users, [here](https://github.com/AliceDigitalLab
 ** Ensure you have Git installed on your PC - and its path will automatically be updated on the "Systems Environment Variables". If not, you may have to manually assign the **bin directory of Git** & **address location of the git-core** to be set in the variable "Path" **
 
 * Make sure you have installed the correct version of Java of both **jdk & jre**. 
- * Path to bin directory of Java should be supplied in the: "Systems Environment Variables"
-  * i.e. In "User Variable", add & type: JAVA_HOME | giving address as: C:\java\jdk1.8.0_202
-  * Find "Path" in "User Variable", place: %JAVA_HOME%\bin
+ ** Path to bin directory of Java should be supplied in the: "Systems Environment Variables"
+  *** i.e. In "User Variable", add & type: JAVA_HOME | giving address as: C:\java\jdk1.8.0_202
+  *** Find "Path" in "User Variable", place: %JAVA_HOME%\bin
 
 1. Install cordova
 
