@@ -113,7 +113,6 @@
     function defaultDisplay() {
       vm.moodDisplay.name = 'No Mood!';
       vm.moodDisplay.id = 'No Mood!';
-      vm.moodDisplay.emoji = '😶';
     }
 
 
