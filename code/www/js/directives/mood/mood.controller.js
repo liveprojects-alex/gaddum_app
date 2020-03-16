@@ -160,7 +160,7 @@
 
         function () {
           if (vm.detecting) {
-            //console.log("*** doUpdate, emotionReaderService:", emotionReaderService);
+            //console.log("* doUpdate, emotionReaderService:", emotionReaderService);
 
             vm.cameraError = emotionReaderService.cameraError;
             vm.isRunning = emotionReaderService.isRunning;

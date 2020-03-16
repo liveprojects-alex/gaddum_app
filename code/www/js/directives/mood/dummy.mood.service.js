@@ -15,7 +15,7 @@
     $q
   ) {
     var emotions = [
-      {id: "peaceful", name: "peaceful", icon_resource: null, music_resource: null, emoticon_resource: "😇"},
+      {id: "peaceful", name: "peaceful", icon_resource: null, music_resource: null, emoticon_resource: "😘"},
       {id: "angry", name: "angry", icon_resource: null, music_resource: null, emoticon_resource: "😡"},
       {id: "restful", name: "restful", icon_resource: null, music_resource: null, emoticon_resource: "😌"},
       {id: "crazy", name: "crazy", icon_resource: null, music_resource: null, emoticon_resource: "😜"},
@@ -26,6 +26,7 @@
       {id: "bored", name: "bored", icon_resource: null, music_resource: null, emoticon_resource: "🙄"},
       {id: "focussed", name: "focussed", icon_resource: null, music_resource: null, emoticon_resource: "🤔"}]
 
+      //var emotion_resource = document.getElementById("myImgName");
 
     function faceToMoodId(id){
       
