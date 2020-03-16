@@ -71,7 +71,7 @@
         height: 140,
         canvas: {
           width: 140,
-          height: 140
+          height: 140,
         },
         capture: {
           width: 140,
@@ -113,7 +113,6 @@
     function defaultDisplay() {
       vm.moodDisplay.name = 'No Mood!';
       vm.moodDisplay.id = 'No Mood!';
-      vm.moodDisplay.emoji = '😶';
     }
 
 
@@ -395,9 +394,6 @@
       return deferred.promise;
 
     }
-
-
-
     vm.onItemSelect = onItemSelect;
     vm.selectModal = selectModal;
     vm.wakeUpCamera = wakeUpCamera;

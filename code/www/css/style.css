@@ -418,6 +418,7 @@ ion-side-menu-content/*.menu-content.pane*/ {
     font-size: 40px;
     transform: translate(-50%);
 }
+
 .moodQuestionMark{
     position: absolute;
     top: 0;
@@ -654,6 +655,7 @@ input::placeholder{
     margin-left: 10%;
 }
 
+
 .moodEmoji{
     text-align: center;
     font-size: 90px;
@@ -668,20 +670,27 @@ input::placeholder{
     background-color: var(--color-moodBubble);
     cursor: pointer;
 }
+
 .moodEmojiHide{
     background-color: rgba(0, 0, 0, 0) !important;
 }
 .moodCanvas{
-    /* border: 3px solid #d3d3d3; */
     width:140px; 
     height:140px; 
     position: absolute; 
-    z-index: 0; 
+    z-index: 1; 
     opacity: 0.4; 
-    margin-top: 13.5%; 
     border-radius: 100px; 
     left:31%;
+    top:10%;
     filter: blur(2px);
+}
+
+.genericChar{
+    text-align: center;
+    left: 31%;
+    top: 10%;
+    position: absolute;
 }
 
 .sleepLabel{
@@ -726,10 +735,10 @@ input::placeholder{
     border-bottom: 0.75rem solid transparent;  /* left arrow slant */
     border-top: 0.75rem solid transparent; /* right arrow slant */
     border-left: 3rem solid #000;
-    
     display: block;
     width: 0;
 }
+
 .triangle-border:after {
     content: "";
     position: absolute;
